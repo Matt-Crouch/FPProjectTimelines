@@ -1,0 +1,20 @@
+cr725_benefitstatus: =If(Decimal(cr725_actualthisyear)<Decimal(cr725_netbenefitthisyear),"1","2")
+cr725_deliverystatusvalue: |-
+    =If(cr725_currentprojectstatus=cr725_bihub_ideas_cr725_bihub_ideas_cr725_currentprojectstatus.'0',2,
+    If(cr725_currentprojectstatus=cr725_bihub_ideas_cr725_bihub_ideas_cr725_currentprojectstatus.'1',1,
+    If(cr725_currentprojectstatus=cr725_bihub_ideas_cr725_bihub_ideas_cr725_currentprojectstatus.'2',0
+    ,3)))
+cr725_enabler: =If(cr725_enablerorinfluencer=cr725_bihub_ideas_cr725_bihub_ideas_cr725_enablerorinfluencer.'0',"⚙️Enabler","💵Value Driver")
+cr725_fap: =If(cr725_fullassetpotentialinitative=true,"🚀",Blank())
+cr725_focusyear1: =Value(cr725_projectfocusyear)+1
+cr725_impactkpisite: =cr725_ImpactKPI.cr725_fullsitename
+cr725_impactkpitext: =If(cr725_ImpactKPI.cr725_name=Blank(),"None Defined",cr725_ImpactKPI.cr725_name)
+cr725_impactkpivaluetomultiplier: =cr725_ImpactKPI.cr725_metrictovaluemultiplier
+cr725_parentkpi: =cr725_ImpactKPI.cr725_PrimaryKPI.cr725_primarykpi
+cr725_parentprojectname: =cr725_ParentGroupingProject.cr725_title
+cr725_plannedbenefit: |-
+    =If(cr725_enablerorinfluencer=cr725_bihub_ideas_cr725_bihub_ideas_cr725_enablerorinfluencer.'0',"Enabler",Text(cr725_totalplannedbenefitcalc,"$#"))
+cr725_taskscompletecancelled: =cr725_taskscomplete+cr725_taskscancelled
+cr725_tasksnotstartedcancelled: =cr725_tasksnotstarted+cr725_taskscancelled
+cr725_totalforecastbenefitcalc: =(cr725_impactkpivaluetomultiplier * cr725_kpiforecasttarget) + cr725_totalplannedbenefit
+cr725_totalplannedbenefitcalc: =cr725_impactkpivaluetomultiplier * cr725_kpiplannedtargetsum

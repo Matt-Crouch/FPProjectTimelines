@@ -1,0 +1,163 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_40afe"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "startTime": "2024-04-02T02:00:00Z"
+          },
+          "metadata": {
+            "operationMetadataId": "cc20f0a0-afab-42e6-a187-d7db6dca11dd"
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_rows": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "cc0cf369-7979-46c6-a84b-bb5ed2810542"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr725_ideafinancialses"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Apply_to_each_2": {
+          "foreach": "@outputs('List_rows')?['body/value']",
+          "actions": {
+            "Condition_2": {
+              "actions": {
+                "Calc_Planned_Benefit": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "782665ff-b175-4f37-9258-1d46e3991171"
+                  },
+                  "type": "Compose",
+                  "inputs": "@{items('Apply_to_each_2')?['cr725_plannednetbenefit']}*0.65"
+                },
+                "Update_a_row_3": {
+                  "runAfter": {
+                    "Calc_Actual": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "4568eeb1-b175-4724-844e-4945a5ec239a"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "cr725_ideafinancialses",
+                      "recordId": "@items('Apply_to_each_2')?['cr725_ideafinancialsid']",
+                      "item/cr725_actualbenefitexchrateadjusted": "@outputs('Calc_Actual')",
+                      "item/cr725_plannednetbenefitexchadjusted": "@outputs('Calc_Planned_Benefit')"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Calc_Actual": {
+                  "runAfter": {
+                    "Calc_Planned_Benefit": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "94dae935-b0c0-4e55-bc42-d90767f28a12"
+                  },
+                  "type": "Compose",
+                  "inputs": "@{items('Apply_to_each_2')?['cr725_actualnetbenefit']}*0.65"
+                }
+              },
+              "runAfter": {},
+              "else": {
+                "actions": {
+                  "Update_a_row_4": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "5180421f-e4e3-47d3-9ea1-ce8058e6918b"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "UpdateRecord",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                      },
+                      "parameters": {
+                        "entityName": "cr725_ideafinancialses",
+                        "recordId": "@items('Apply_to_each_2')?['cr725_ideafinancialsid']",
+                        "item/cr725_actualbenefitexchrateadjusted": "@items('Apply_to_each_2')?['cr725_actualnetbenefit']",
+                        "item/cr725_plannednetbenefitexchadjusted": "@items('Apply_to_each_2')?['cr725_plannednetbenefit']"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                }
+              },
+              "expression": {
+                "equals": [
+                  "@items('Apply_to_each_2')?['_transactioncurrencyid_value']",
+                  "Australian Dollar"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "0f4812fe-1271-4338-b6ce-2d35f4c8554e"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "List_rows": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ff7efc28-38f3-4dd7-b653-5f73dbea9ff3"
+          },
+          "type": "Foreach"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

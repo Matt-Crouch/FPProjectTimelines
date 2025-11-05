@@ -1,0 +1,158 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_40afe"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "aubia_sharedoffice365_ac5e4"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      },
+      "shared_office365users": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedoffice365users_84890"
+        },
+        "api": {
+          "name": "shared_office365users"
+        }
+      },
+      "shared_commondataserviceforapps-1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "aubia_sharedcommondataserviceforapps_6ef6a"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "016d642f-31b2-43fa-be84-9ff41643f97f"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "cr725_bihub_ideas",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "cr725_dtinvolvement",
+              "subscriptionRequest/runas": 3,
+              "subscriptionRequest/name": "2377a84e-0fec-ee11-a204-000d3ab1baf6"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Send_an_email_(V2)": {
+          "runAfter": {
+            "Project_Owner_Display_Name": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "0ad74873-a10f-4529-9eab-2a8d9634efab"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "emailMessage/To": "MCrouch@anglogoldashanti.com",
+              "emailMessage/Subject": "Full Potential Hub Notification - DT Involvement required",
+              "emailMessage/Body": "<img src=\"https://res.cloudinary.com/anglogold-ashanti/image/upload/v1706849626/fphub_2x.jpg\" alt=\"FPHub Logo\"><br><br><br><br><br><p>Hi There,<br><br>A project has been created in the Full Potential Hub that has been flagged as requiring DT/OP/IT Involvement. This email serves as a notification to reach out to the Project owner for more information if required.</p><br><p><b><strong>Project ID:</strong></b> @{triggerBody()?['cr725_id']}</p><p><b><strong>Project Name:</strong></b> @{triggerBody()?['cr725_title']}</p><p><b><strong>Project Owner:</strong></b> @{outputs('Project_Owner_Display_Name')}</p><p><b><strong>Project Description:</strong></b></p><p>@{triggerBody()?['cr725_projectdescription']}</p><br><br><br><p><a href=\"@{outputs('Project_Link')}\"><b><strong>🔗 Project Link</strong></b></a></p><br><br><br><br><p>This is an automated message from the Full Asset Potential Hub - For any questions please reach out to Matt Crouch.</p>",
+              "emailMessage/Importance": "Normal"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+              "operationId": "SendEmailV2",
+              "connectionName": "shared_office365"
+            }
+          }
+        },
+        "Project_Link": {
+          "runAfter": {
+            "Get_user_profile_(V2)": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": "https://bihub.crm4.dynamics.com/main.aspx?appid=ee0fa560-6930-ee11-bdf4-000d3ab1b2d7&pagetype=entityrecord&etn=cr725_bihub_ideas&id=@{triggerBody()?['cr725_bihub_ideasid']}"
+        },
+        "Get_user_profile_(V2)": {
+          "runAfter": {
+            "Get_a_row_by_ID": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "id": "@body('Get_a_row_by_ID')?['azureactivedirectoryobjectid']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+              "operationId": "UserProfile_V2",
+              "connectionName": "shared_office365users"
+            }
+          }
+        },
+        "Project_Owner_Display_Name": {
+          "runAfter": {
+            "Project_Link": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": "@outputs('Get_user_profile_(V2)')?['body/displayName']"
+        },
+        "Get_a_row_by_ID": {
+          "runAfter": {},
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "systemusers",
+              "recordId": "@triggerBody()?['_cr725_projectowner_value']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "connectionName": "shared_commondataserviceforapps-1"
+            }
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

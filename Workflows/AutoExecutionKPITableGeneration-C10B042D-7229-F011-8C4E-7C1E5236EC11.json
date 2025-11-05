@@ -1,0 +1,649 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_3b496"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "subscriptionRequest/message": 1,
+              "subscriptionRequest/entityname": "cr725_bihub_ideas",
+              "subscriptionRequest/scope": 4
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "ddaed4d5-6fd0-4a8a-9c4e-86637416f942"
+          }
+        }
+      },
+      "actions": {
+        "Project_Focus_Year": {
+          "type": "Compose",
+          "inputs": "@triggerOutputs()?['body/cr725_projectfocusyear']",
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "85249855-4948-4999-8314-6bf7cc61f9a5"
+          }
+        },
+        "Project_Focus_Year_+_1": {
+          "type": "Compose",
+          "inputs": "@triggerOutputs()?['body/cr725_focusyear1']",
+          "runAfter": {
+            "Project_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f482df5d-d22e-4f94-86b8-b0472ffa7db6"
+          }
+        },
+        "Add_Jan_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 1,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Project_Focus_Year_+_1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "6960b1dd-f89b-4048-9012-cc9072764ecd"
+          }
+        },
+        "Add_Feb_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 2,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Jan_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7e6a72e1-7fbb-476c-9c5b-63792cab456c"
+          }
+        },
+        "Add_Mar_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 3,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Feb_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "15bd95ee-eb8e-4766-ba18-3280bb242502"
+          }
+        },
+        "Add_Apr_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 4,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Mar_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b6f332da-8fda-4fd8-a302-136bea672ec4"
+          }
+        },
+        "Add_May_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 5,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Apr_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5d96104c-357f-43f7-b925-6bb3ac18638e"
+          }
+        },
+        "Add_Jun_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 6,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_May_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7784b9e9-aa26-4aea-ab00-8899d5a3066e"
+          }
+        },
+        "Add_Jul_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 7,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Jun_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "00a04138-bf64-4d70-953b-4c64ff87eab9"
+          }
+        },
+        "Add_Aug_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 8,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Jul_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d448a671-a923-4b88-aacd-0fa8c625c1e9"
+          }
+        },
+        "Add_Sep_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 9,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Aug_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e2004890-27f0-4d1e-bcd2-8b61dac3aaa0"
+          }
+        },
+        "Add_Oct_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 10,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Sep_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d222675b-e0e6-4d91-af3c-9d21e1faf57a"
+          }
+        },
+        "Add_Nov_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 11,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Oct_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7ec5ed76-1407-4bdf-a87c-9f87b6da81e4"
+          }
+        },
+        "Add_Dec_of_Focus_Year": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 12,
+              "item/cr725_year": "@outputs('Project_Focus_Year')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Nov_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "47902219-47af-4c4d-85ca-48d49e4f961a"
+          }
+        },
+        "Add_Jan_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 1,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Dec_of_Focus_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "896d9ad8-a966-4fd3-a14f-9c4a910868e5"
+          }
+        },
+        "Add_Feb_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 2,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Jan_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2f261865-d017-4b8b-a2c2-4b7469c105ea"
+          }
+        },
+        "Add_Mar_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 3,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Feb_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "759d45e7-e518-4c35-9990-f2781263efd8"
+          }
+        },
+        "Add_Apr_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 4,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Mar_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1c2e255f-97a7-462e-833e-4f31322c4853"
+          }
+        },
+        "Add_May_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 5,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Apr_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "311f5d8a-8376-4c14-8a54-478f0d6f452b"
+          }
+        },
+        "Add_Jun_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 6,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_May_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "64e4bc1f-4767-4c14-a768-c123d9a7eb2e"
+          }
+        },
+        "Add_Jul_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 7,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Jun_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "32be42d3-9e59-4eba-812b-3dc884e02fbe"
+          }
+        },
+        "Add_Aug_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 8,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Jul_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1f722da9-bcb6-4d47-a1a4-77dd4c9bef16"
+          }
+        },
+        "Add_Sep_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 9,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Aug_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "fe24c5b8-8806-4ce3-9c63-c2a0556556f4"
+          }
+        },
+        "Add_Oct_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 10,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Sep_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "42d58a05-6a56-42d9-8c3c-b0f1bc8c84e0"
+          }
+        },
+        "Add_Nov_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 11,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Oct_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cca02afa-65f3-4dbb-9099-24974a371da6"
+          }
+        },
+        "Add_Dec_of_Focus_Year_+1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_kpiperformances",
+              "item/cr725_RelatedProject@odata.bind": "cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})",
+              "item/cr725_month": 12,
+              "item/cr725_year": "@outputs('Project_Focus_Year_+_1')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_Nov_of_Focus_Year_+1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c7be7f68-4c0a-45b5-b036-bf6dd05b5c26"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,25 @@
+function fnLockFields(executionContext) {
+
+   let oFormContext = executionContext.getFormContext();
+
+   if (oFormContext) {
+
+       let arrFields = ["cr725_currentprojectstatus"];
+
+       let objEntity = oFormContext.data.entity;
+
+       objEntity.attributes.forEach(function (attribute, i) {
+
+              if (arrFields.indexOf(attribute.getName()) > -1) {
+
+                 let attributeToDisable = attribute.controls.get(0);
+
+                 attributeToDisable.setDisabled(true);
+
+              }
+
+       }
+
+)};
+
+}

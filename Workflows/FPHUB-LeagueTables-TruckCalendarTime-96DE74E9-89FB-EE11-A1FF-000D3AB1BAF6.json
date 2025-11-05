@@ -1,0 +1,279 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps-1": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_59d92"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "aubia_sharedcommondataserviceforapps_6ef6a"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "cr725_metricdata",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "cr725_value, cr725_workflowinstigatortoggle",
+              "subscriptionRequest/filterexpression": "contains(cr725_siteandmetric, 'Truck Total Equipment Nos.') and cr725_relatedworkarea eq '747870012'",
+              "subscriptionRequest/name": "96de74e9-89fb-ee11-a1ff-000d3ab1baf6"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "connectionName": "shared_commondataserviceforapps-1"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Get_Month": {
+          "type": "Compose",
+          "inputs": "@triggerBody()?['cr725_month']",
+          "runAfter": {
+            "Hours_in_Month": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Get_Year": {
+          "type": "Compose",
+          "inputs": "@triggerBody()?['cr725_year']",
+          "runAfter": {
+            "Get_Month": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Get_Site": {
+          "type": "Compose",
+          "inputs": "@triggerBody()?['_cr725_site_value']",
+          "runAfter": {
+            "Get_Year": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Initialize_variable": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "mydate",
+                "type": "string",
+                "value": "@triggerBody()?['cr725_date']"
+              }
+            ]
+          },
+          "runAfter": {
+            "Get_Modified_Value": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Year": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "yr",
+                "type": "integer",
+                "value": "@int(formatDateTime(variables('mydate'), 'yyyy'))"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Month": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "mnth",
+                "type": "integer",
+                "value": "@int(formatDateTime(variables('mydate'), 'MM'))"
+              }
+            ]
+          },
+          "runAfter": {
+            "Year": [
+              "Succeeded"
+            ]
+          }
+        },
+        "IsLeapYr": {
+          "type": "Compose",
+          "inputs": "@or(and(equals(mod(variables('yr'), 4), 0), not(equals(mod(variables('yr'), 100), 0))), \r\nequals(mod(variables('yr'), 400), 0))",
+          "runAfter": {
+            "Month": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Days_in_Month": {
+          "type": "Compose",
+          "inputs": "@if(equals(variables('mnth'),2), if(outputs('IsLeapYr'), 29, 28), if(or(equals(variables('mnth'),1), equals(variables('mnth'),3), equals(variables('mnth'),5), equals(variables('mnth'),7), equals(variables('mnth'),8), equals(variables('mnth'),10), equals(variables('mnth'),12)), '31', '30'))",
+          "runAfter": {
+            "IsLeapYr": [
+              "Succeeded"
+            ]
+          }
+        },
+        "List_rows": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_metricdatas",
+              "$filter": "endswith(cr725_siteandmetric, 'Truck Calendar Time') and cr725_year eq @{outputs('Get_Year')} and cr725_month eq @{outputs('Get_Month')}and _cr725_site_value eq @{outputs('Get_Site')}",
+              "$top": 1
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Initialise_Calculated_Metric": [
+              "Succeeded"
+            ]
+          }
+        },
+        "For_each_1": {
+          "type": "Foreach",
+          "foreach": "@outputs('List_rows')?['body/value']",
+          "actions": {
+            "Get_Row_ID_to_Update": {
+              "type": "Compose",
+              "inputs": "@items('For_each_1')?['cr725_metricdataid']"
+            },
+            "Update_a_row": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "recordId": "@outputs('Get_Row_ID_to_Update')",
+                  "item/cr725_value": "@outputs('New_Decimal_Value')"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "New_Decimal_Value": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "New_Decimal_Value": {
+              "type": "Compose",
+              "inputs": "@variables('Calculated Metric')",
+              "runAfter": {
+                "Get_Row_ID_to_Update": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "runAfter": {
+            "List_rows": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Get_Modified_Value": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "modifiedvalue",
+                "type": "float",
+                "value": "@int(triggerBody()?['cr725_value'])"
+              }
+            ]
+          },
+          "runAfter": {
+            "Compose": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Initialise_Calculated_Metric": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Calculated Metric",
+                "type": "float",
+                "value": "@mul(variables('Hours in Month'),variables('modifiedvalue'))"
+              }
+            ]
+          },
+          "runAfter": {
+            "Get_Site": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Hours_in_Month": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Hours in Month",
+                "type": "integer",
+                "value": "@mul(int(outputs('Days_in_Month')),24)"
+              }
+            ]
+          },
+          "runAfter": {
+            "Days_in_Month": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Compose": {
+          "type": "Compose",
+          "inputs": "@triggerBody()?['_cr725_metric_value']",
+          "runAfter": {}
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

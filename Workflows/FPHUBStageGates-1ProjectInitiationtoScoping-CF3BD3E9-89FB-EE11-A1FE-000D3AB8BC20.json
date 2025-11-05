@@ -1,0 +1,372 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {},
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "undefined",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "5011d3d2-fc26-4410-b1a0-ad87fb97174d"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "cr725_bihubidea",
+              "subscriptionRequest/scope": 4
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Stage_1_Check": {
+          "actions": {
+            "Update_a_row": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "44ad0199-e3ae-459f-b032-e57ee89ad8d8"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr725_bihub_ideases",
+                  "recordId": "@triggerBody()?['_bpf_cr725_bihub_ideasid_value']",
+                  "item/cr725_projectstage": "Stage 1 - Project Initiation",
+                  "item/cr725_projectstagegate": 1
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Stage_6_ID": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Pulled_Stage_ID')",
+              "@outputs('Stage_1_ID')"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "81dfdd22-719e-433b-812c-107b43cd3278"
+          },
+          "type": "If"
+        },
+        "Stage_2_Check": {
+          "actions": {
+            "Update_a_row_2": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "04577af4-5161-409d-a2ad-e80eb055d9a4"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr725_bihub_ideases",
+                  "recordId": "@triggerBody()?['_bpf_cr725_bihub_ideasid_value']",
+                  "item/cr725_projectstage": "Stage 2 - Project Scoping",
+                  "item/cr725_projectstagegate": 2
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Stage_6_ID": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Pulled_Stage_ID')",
+              "@outputs('Stage_2_ID')"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "a2e3fece-2828-46f8-b6f3-3995b9fc749e"
+          },
+          "type": "If"
+        },
+        "Pulled_Stage_ID": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "fade944f-9bc5-48a1-b8e8-4dccf6eacd58"
+          },
+          "type": "Compose",
+          "inputs": "@triggerOutputs()?['body/_activestageid_value']"
+        },
+        "Stage_1_ID": {
+          "runAfter": {
+            "Pulled_Stage_ID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "6f1956d1-cb11-43c0-a732-59565afaab34"
+          },
+          "type": "Compose",
+          "inputs": "8df88c91-1fe3-40ce-b8dc-5396fddb7b0a"
+        },
+        "Stage_3_Check": {
+          "actions": {
+            "Update_a_row_3": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "04577af4-5161-409d-a2ad-e80eb055d9a4"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr725_bihub_ideases",
+                  "recordId": "@triggerBody()?['_bpf_cr725_bihub_ideasid_value']",
+                  "item/cr725_projectstage": "Stage 3 - Identify Solution",
+                  "item/cr725_projectstagegate": 3
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Stage_6_ID": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Pulled_Stage_ID')",
+              "@outputs('Stage_3_ID')"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "0821e963-58e4-420e-8a08-d9323f9afe6a"
+          },
+          "type": "If"
+        },
+        "Stage_2_ID": {
+          "runAfter": {
+            "Stage_1_ID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b64ca5a0-01bd-4e7b-8e2a-f4f25fc330c8"
+          },
+          "type": "Compose",
+          "inputs": "5d6e836e-4ef0-47e5-9885-1583cf829e5f"
+        },
+        "Stage_3_ID": {
+          "runAfter": {
+            "Stage_2_ID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1ddbe7a6-0432-4437-a5b5-4c5dbc0f1eab"
+          },
+          "type": "Compose",
+          "inputs": "6575231d-4c62-4913-88f1-9c7fbe6e717c"
+        },
+        "Stage_4_ID": {
+          "runAfter": {
+            "Stage_3_ID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e4838c31-a38e-436d-81f3-32a49085addb"
+          },
+          "type": "Compose",
+          "inputs": "4db09ab5-84c3-4f3d-a182-d117278a3917"
+        },
+        "Stage_5_ID": {
+          "runAfter": {
+            "Stage_4_ID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "999e1206-2e32-4ade-afea-6f07772700a9"
+          },
+          "type": "Compose",
+          "inputs": "ac66c960-09a1-4a6b-8042-ad444acf58fb"
+        },
+        "Stage_6_ID": {
+          "runAfter": {
+            "Stage_5_ID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "4c01a059-413a-435b-a0af-19d75baae5b1"
+          },
+          "type": "Compose",
+          "inputs": "0526c5c0-e365-421d-b55d-64993010c71d"
+        },
+        "Stage_4_Check": {
+          "actions": {
+            "Update_a_row_4": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "04577af4-5161-409d-a2ad-e80eb055d9a4"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr725_bihub_ideases",
+                  "recordId": "@triggerBody()?['_bpf_cr725_bihub_ideasid_value']",
+                  "item/cr725_projectstage": "Stage 4 - Implement Project",
+                  "item/cr725_projectstagegate": 4
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Stage_6_ID": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Pulled_Stage_ID')",
+              "@outputs('Stage_4_ID')"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "29db78a8-c953-4f0d-a0e6-a8605b8e87d8"
+          },
+          "type": "If"
+        },
+        "Stage_5_Check": {
+          "actions": {
+            "Update_a_row_5": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "04577af4-5161-409d-a2ad-e80eb055d9a4"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr725_bihub_ideases",
+                  "recordId": "@triggerBody()?['_bpf_cr725_bihub_ideasid_value']",
+                  "item/cr725_projectstage": "Stage 5 - Capture Benefits",
+                  "item/cr725_projectstagegate": 5
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Stage_6_ID": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Pulled_Stage_ID')",
+              "@outputs('Stage_5_ID')"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2961556b-76dd-4f9c-b5c6-15518547e14c"
+          },
+          "type": "If"
+        },
+        "Stage_6_Check": {
+          "actions": {
+            "Update_a_row_6": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "04577af4-5161-409d-a2ad-e80eb055d9a4"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr725_bihub_ideases",
+                  "recordId": "@triggerBody()?['_bpf_cr725_bihub_ideasid_value']",
+                  "item/cr725_projectstage": "Stage 6 - Closed Out",
+                  "item/cr725_projectstagegate": 6
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Stage_6_ID": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Pulled_Stage_ID')",
+              "@outputs('Stage_6_ID')"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "9b0e86be-24cf-493d-b761-ccd8bc9fe03c"
+          },
+          "type": "If"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

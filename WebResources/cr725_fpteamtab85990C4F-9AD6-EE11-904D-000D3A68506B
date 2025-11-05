@@ -1,0 +1,15 @@
+/* Show "fptab" tab if the user ispart of the Full Asset Potential Team Security Group
+ * Register this event handler on form load.
+ * Check the "Pass execution context as first parameter" checkbox.
+*/
+function onLoad(execCtx) {
+    const formCtx = execCtx.getFormContext();
+    
+    const roleName = "Full Asset Potential Team";
+    const isAdmin = Xrm.Utility.getGlobalContext().userSettings.roles.get(r => r.name == roleName);
+
+    if (isAdmin) {
+        formCtx.ui.tabs.get("fpteam").setVisible(true);
+		
+    }
+}

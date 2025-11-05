@@ -1,0 +1,122 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "aubia_sharedcommondataserviceforapps_6ef6a"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_webcontents": {
+        "api": {
+          "name": "shared_webcontents"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedwebcontents_f132b"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "cr725_tasks",
+              "subscriptionRequest/scope": 2,
+              "subscriptionRequest/filteringattributes": "cr725_revisedactualstart, cr725_revisedactualfinish, cr725_taskstate, cr725_overduetotalcount, cr725_overdue",
+              "subscriptionRequest/filterexpression": "statecode eq 0"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Update_a_row": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_taskses",
+              "recordId": "@triggerBody()?['activityid']",
+              "item/cr725_overduetaskcountnumber": "@triggerBody()?['cr725_overduetotalcount']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {}
+        },
+        "Run_a_Child_Flow": {
+          "type": "Workflow",
+          "inputs": {
+            "host": {
+              "workflowReferenceName": "6a7a9e8c-675f-ef11-bfe3-000d3ab0bf53"
+            },
+            "body": {
+              "text": "@triggerBody()?['_cr725_relatedidea_value']"
+            }
+          },
+          "runAfter": {
+            "Invoke_an_HTTP_request-copy-copy": [
+              "Succeeded"
+            ]
+          }
+        },
+        "API_URL_to_update_Rollup_Field-copy": {
+          "type": "Compose",
+          "inputs": "https://bihub.crm4.dynamics.com/api/data/v9.1/CalculateRollupField(Target=@tid,FieldName=@field)?@tid={'@odata.id':'cr725_bihub_ideases(@{triggerBody()?['_cr725_relatedidea_value']})'}&@field='cr725_overduetaskcount'",
+          "runAfter": {
+            "Update_a_row": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Invoke_an_HTTP_request-copy-copy": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "request/method": "GET",
+              "request/url": "@outputs('API_URL_to_update_Rollup_Field-copy')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents",
+              "operationId": "InvokeHttp",
+              "connectionName": "shared_webcontents"
+            }
+          },
+          "runAfter": {
+            "API_URL_to_update_Rollup_Field-copy": [
+              "Succeeded"
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

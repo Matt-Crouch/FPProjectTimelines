@@ -1,0 +1,8 @@
+cr725_fullsitename: =cr725_Site.cr725_fullsitename
+cr725_impactkpitext: =If(cr725_impactkpi=true,"Impact KPI",Blank())
+cr725_metricowneremail: =cr725_MetricOwner.domainname
+cr725_parentandmetricordersum: =cr725_primarykpiorder*100+cr725_metricorder
+cr725_primarykpiorder: =cr725_PrimaryKPI.cr725_order
+cr725_siteandmetric: =Concatenate(cr725_Site.cr725_name&" - "&cr725_name)
+cr725_userinputflag: =cr725_userinputrequired
+cr725_userinputflagnumber: =If(cr725_userinputrequired=true,1,0)

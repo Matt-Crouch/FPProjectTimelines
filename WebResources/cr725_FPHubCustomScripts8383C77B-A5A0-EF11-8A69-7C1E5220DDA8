@@ -1,0 +1,9 @@
+function HideSection(executionContext) {
+        var formContext = executionContext.getFormContext();
+        try {
+            formContext.ui.tabs.get("Benefits").sections.get("kpi_based_benefits").setVisible(false);
+        }
+        catch (e) {
+            Alert(e.message   " - "   section);
+        }
+    }

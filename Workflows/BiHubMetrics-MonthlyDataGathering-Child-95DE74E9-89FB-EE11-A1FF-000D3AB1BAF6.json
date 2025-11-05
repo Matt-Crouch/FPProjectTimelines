@@ -1,0 +1,315 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "impersonation": {},
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "aubia_sharedcommondataserviceforapps_6ef6a"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_teams": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "aubia_sharedteams_03271"
+        },
+        "api": {
+          "name": "shared_teams"
+        }
+      },
+      "shared_office365users": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "aubia_sharedoffice365users_d8e79"
+        },
+        "api": {
+          "name": "shared_office365users"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "f6a435fa-b492-4d87-808f-1f676cd28d42"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Metric Row ID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please Provide",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "Metric Data Row ID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please Provide",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Update_a_row": {
+          "runAfter": {
+            "Comment": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "11d6721c-4422-4b36-9ffb-ea5786b5a026"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord"
+            },
+            "parameters": {
+              "entityName": "cr725_metricdatas",
+              "recordId": "@triggerBody()['text_1']",
+              "item/cr725_value": "@outputs('New_Value')"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Postadaptivecardandwaitforresponse": {
+          "runAfter": {
+            "Create_a_chat": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bcf19e55-462f-4cf1-9183-dc05595fa1be"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+              "connectionName": "shared_teams",
+              "operationId": "PostCardAndWaitForResponse"
+            },
+            "parameters": {
+              "poster": "Flow bot",
+              "location": "Group chat",
+              "body/body/messageBody": "{\n    \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n    \"type\": \"AdaptiveCard\",\n    \"version\": \"1.4\",\n    \"body\": [\n          {\n            \"type\": \"Image\",\n            \"url\": \"https://res.cloudinary.com/anglogold-ashanti/image/upload/v1686619102/BI%20Hub%20Branding/albiaoikv1iujmiri1v6.png\",\n            \"size\": \"auto\",\n            \"spacing\": \"large\",\n            \"horizontalAlignment\": \"center\",\n            \"width\": \"\",\n            \"separator\": false\n          },\n          {\n            \"type\": \"TextBlock\",\n            \"size\": \"Large\",\n            \"weight\": \"Bolder\",\n            \"text\": \"Hi @{outputs('User_Responsible_for_Providing_Data')?['body/givenName']}! 👋\",\n            \"horizontalAlignment\": \"Left\",\n            \"wrap\": true,\n            \"style\": \"heading\",\n            \"spacing\": \"extraLarge\"\n          },\n          {\n            \"type\": \"TextBlock\",\n            \"size\": \"Medium\",\n            \"weight\": \"lighter\",\n            \"text\": \"You have been nominated to provide Processing League Table Data on a Monthly basis. Please review the below request and provide the nessecary values. Thanks!  \",\n            \"horizontalAlignment\": \"Left\",\n            \"wrap\": true,\n            \"style\": \"heading\",\n            \"spacing\": \"extraLarge\"\n          },\n            {\n            \"type\": \"TextBlock\",\n            \"id\": \"textLabel5\",\n            \"wrap\": true,\n            \"text\": \"*Site:* @{outputs('Get_Site_Name')} \",\n            \"spacing\": \"default\",\n            \"weight\": \"default\"\n          },\n          {\n            \"type\": \"TextBlock\",\n            \"id\": \"textLabel7\",\n            \"wrap\": true,\n            \"text\": \"*Due Date:* @{outputs('Get_Metric_Data_Row')?['body/cr725_datarequiredbydate@OData.Community.Display.V1.FormattedValue']} \",\n            \"weight\": \"default\"\n          },\n          {\n            \"type\": \"TextBlock\",\n            \"size\": \"Medium\",\n            \"weight\": \"Bolder\",\n            \"text\": \"_Please update the Information below_\",\n            \"horizontalAlignment\": \"Left\",\n            \"wrap\": true,\n            \"isSubtle\": true,\n            \"spacing\": \"extraLarge\"\n          },\n         {\n            \"type\": \"Container\",\n            \"items\": [\n              {\n                \"type\": \"ColumnSet\",\n                \"columns\": [\n                  {\n                    \"type\": \"Column\",\n                    \"width\": \"stretch\",\n                    \"items\": [\n                      {\n                        \"type\": \"ColumnSet\",\n                        \"id\": \"columnSet1\",\n                        \"columns\": [\n                          {\n                            \"type\": \"Column\",\n                            \"id\": \"column3\",\n                            \"width\": \"auto\",\n                            \"items\": [\n                              {\n                                \"type\": \"TextBlock\",\n                                \"id\": \"textLabel8\",\n                                \"wrap\": true,\n                                \"text\": \"Metric\"\n                              },\n                              {\n                                \"type\": \"TextBlock\",\n                                \"size\": \"Medium\",\n                                \"weight\": \"Bolder\",\n                                \"text\": \"@{outputs('Get_Metric_Row')?['body/cr725_name']} \",\n                                \"horizontalAlignment\": \"Left\",\n                                \"wrap\": true,\n                                \"spacing\": \"default\",\n                                \"$data\": \"@{outputs('Get_Metric_Row')?['body/cr725_name']} \"\n                              }\n                            ],\n                            \"style\": \"default\"\n                          },\n                          {\n                            \"type\": \"Column\",\n                            \"id\": \"column1\",\n                            \"width\": \"auto\",\n                            \"items\": [\n                              {\n                                \"type\": \"TextBlock\",\n                                \"id\": \"textLabel1\",\n                                \"wrap\": true,\n                                \"text\": \"Year\",\n                                \"weight\": \"bolder\"\n                              },\n                              {\n                                \"type\": \"TextBlock\",\n                                \"id\": \"textLabel2\",\n                                \"wrap\": true,\n                                \"color\": \"default\",\n                                \"isSubtle\": false,\n                                \"text\": \"@{outputs('Get_Year')}\"\n                              }\n                            ],\n                            \"style\": \"default\"\n                          },\n                          {\n                            \"type\": \"Column\",\n                            \"id\": \"column2\",\n                            \"width\": \"auto\",\n                            \"items\": [\n                              {\n                                \"type\": \"TextBlock\",\n                                \"id\": \"textLabel3\",\n                                \"wrap\": true,\n                                \"text\": \"Month\",\n                                \"weight\": \"bolder\"\n                              },\n                              {\n                                \"type\": \"TextBlock\",\n                                \"id\": \"textLabel4\",\n                                \"wrap\": true,\n                                \"text\": \"@{outputs('Get_Month')}\"\n                              }\n                            ],\n                            \"style\": \"default\"\n                          },\n                          {\n                            \"type\": \"Column\",\n                            \"id\": \"column6\",\n                            \"width\": \"auto\",\n                            \"items\": [\n                              {\n                                \"type\": \"TextBlock\",\n                                \"id\": \"textLabel9\",\n                                \"wrap\": true,\n                                \"text\": \"🎯 Value\"\n                              },\n                              {\n                                \"type\": \"Input.Number\",\n                                \"placeholder\": \"Enter Value/s\",\n                                \"id\": \"value\",\n                                \"label\": \"\",\n                                \"value\": null,\n                                \"isRequired\": true\n                              }\n                            ]\n                          }\n                        ],\n                        \"style\": \"default\",\n                        \"spacing\": \"default\"\n                      }\n                    ]\n                  }\n                ],\n                \"spacing\": \"Large\",\n                \"style\": \"default\"\n              },\n              {\n                \"type\": \"Input.Text\",\n                \"id\": \"com\",\n                \"label\": \"Provide Notes/Comments (If required)\",\n                \"value\": \"\",\n                \"isMultiline\": true,\n                \"spacing\": \"extraLarge\",\n                \"placeholder\": \"Comments\"\n              },\n              {\n                \"type\": \"TextBlock\",\n                \"id\": \"textLabel6\",\n                \"wrap\": true,\n                \"spacing\": \"extraLarge\",\n                \"color\": \"dark\"\n              },\n              {\n                \"type\": \"ColumnSet\",\n                \"id\": \"columnSet2\",\n                \"columns\": [\n                  {\n                    \"type\": \"Column\",\n                    \"id\": \"column4\",\n                    \"width\": \"auto\",\n                    \"items\": [\n                      {\n                        \"type\": \"Image\",\n                        \"id\": \"image1\",\n                        \"url\": \"https://res.cloudinary.com/anglogold-ashanti/image/upload/v1686619629/BI%20Hub%20Branding/hhcdpfliwrcmscxo0m0p.png\",\n                        \"size\": \"large\",\n                        \"horizontalAlignment\": \"center\",\n                        \"spacing\": \"default\"\n                      }\n                    ]\n                  },\n                 {\n                    \"type\": \"Column\",\n                    \"id\": \"column5\",\n                    \"width\": \"auto\",\n                    \"items\": [\n                      {\n                        \"type\": \"ActionSet\",\n                        \"actions\": [\n                          {\n                            \"type\": \"Action.Submit\",\n                            \"title\": \"Submit\",\n                            \"style\": \"default\"\n                          }\n                        ],\n                        \"horizontalAlignment\": \"Right\",\n                        \"id\": \"submit\"\n                      }\n                    ],\n                    \"verticalContentAlignment\": \"bottom\"\n                  }\n                ],\n                \"style\": \"default\",\n                \"bleed\": false,\n                \"separator\": true,\n                \"spacing\": \"extraLarge\",\n                \"horizontalAlignment\": \"right\"\n              }\n            ]\n          }\n        ]\n}",
+              "body/body/updateMessage": "Thanks for your response!",
+              "body/body/recipient/recipient": "@outputs('Create_a_chat')?['body/id']"
+            },
+            "authentication": {
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']",
+              "type": "Raw"
+            }
+          }
+        },
+        "Get_Metric_Row": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "cbb82ea8-c108-49cc-965c-7b73cf933773"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem"
+            },
+            "parameters": {
+              "entityName": "cr725_metricses",
+              "recordId": "@triggerBody()['text']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "User_Responsible_for_Providing_Data": {
+          "runAfter": {
+            "Get_Month": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "0634a6a0-3556-4c5b-9207-960d8af0e4ad"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+              "connectionName": "shared_office365users",
+              "operationId": "UserProfile_V2"
+            },
+            "parameters": {
+              "id": "@outputs('Get_Users_Row')?['body/internalemailaddress']"
+            },
+            "authentication": {
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']",
+              "type": "Raw"
+            }
+          }
+        },
+        "Get_Metric_Data_Row": {
+          "runAfter": {
+            "Get_Users_Row": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d2a75bfc-785e-4ed4-a688-d13bc0861160"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem"
+            },
+            "parameters": {
+              "entityName": "cr725_metricdatas",
+              "recordId": "@triggerBody()['text_1']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_Users_Row": {
+          "runAfter": {
+            "Get_Metric_Row": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "508117ba-dc5f-4274-b5e0-05050ddb151d"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem"
+            },
+            "parameters": {
+              "entityName": "systemusers",
+              "recordId": "@outputs('Get_Metric_Row')?['body/_cr725_usercurrentresponsibleforprovidingdata_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "New_Value": {
+          "runAfter": {
+            "Postadaptivecardandwaitforresponse": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "60145cd9-d428-44ac-8909-541c6a6881b3"
+          },
+          "type": "Compose",
+          "inputs": "@outputs('Postadaptivecardandwaitforresponse')?['body/data/value']"
+        },
+        "Create_a_chat": {
+          "runAfter": {
+            "User_Responsible_for_Providing_Data": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "834169d5-92ca-4ee8-a2bd-ab7eb975991e"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+              "connectionName": "shared_teams",
+              "operationId": "CreateChat"
+            },
+            "parameters": {
+              "item/members": "@outputs('User_Responsible_for_Providing_Data')?['body/mail']",
+              "item/topic": "🚀 Processing League Table Metrics"
+            },
+            "authentication": {
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']",
+              "type": "Raw"
+            }
+          }
+        },
+        "Comment": {
+          "runAfter": {
+            "New_Value": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ab61ee9b-6ee7-4f9d-ae3a-4ee93ab4df3b"
+          },
+          "type": "Compose",
+          "inputs": "@outputs('Postadaptivecardandwaitforresponse')?['body/data/com']"
+        },
+        "Get_Site_Name": {
+          "runAfter": {
+            "Get_Metric_Data_Row": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5ee0535d-a794-4ebf-9efa-1c8f3973ed38"
+          },
+          "type": "Compose",
+          "inputs": "@outputs('Get_Metric_Row')?['body/_cr725_site_value@OData.Community.Display.V1.FormattedValue']"
+        },
+        "Get_Year": {
+          "runAfter": {
+            "Get_Site_Name": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d0e08475-8215-46c4-bc7b-c09a5d0d5609"
+          },
+          "type": "Compose",
+          "inputs": "@outputs('Get_Metric_Data_Row')?['body/cr725_year@OData.Community.Display.V1.FormattedValue']"
+        },
+        "Get_Month": {
+          "runAfter": {
+            "Get_Year": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e6e15cbd-79e9-4070-b05b-a10de008384a"
+          },
+          "type": "Compose",
+          "inputs": "@outputs('Get_Metric_Data_Row')?['body/cr725_month@OData.Community.Display.V1.FormattedValue']"
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

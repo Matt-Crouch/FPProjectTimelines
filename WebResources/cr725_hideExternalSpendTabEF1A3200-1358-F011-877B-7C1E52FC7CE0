@@ -1,0 +1,28 @@
+function toggleExternalSpendTab(executionContext) {
+    var formContext = executionContext.getFormContext();
+    var field = formContext.getAttribute("cr725_supplychainexternalspendproject");
+    var tab = formContext.ui.tabs.get("Externalspendtab");
+
+    if (!field || !tab) return;
+
+    var value = field.getValue();
+
+    // If the field is a Yes/No (Two Options) field (boolean true/false):
+    var shouldShow = value === true;
+
+    // If the field is a text field and "Yes" is stored as string:
+    // var shouldShow = value === "Yes";
+
+    tab.setVisible(shouldShow);
+}
+
+function onLoadExternalSpendTab(executionContext) {
+    toggleExternalSpendTab(executionContext);
+
+    var formContext = executionContext.getFormContext();
+    var field = formContext.getAttribute("cr725_supplychainexternalspendproject");
+
+    if (field) {
+        field.addOnChange(toggleExternalSpendTab);
+    }
+}

@@ -1,0 +1,24 @@
+cr725_calculatedplannedtargetvalue: =cr725_impactkpivaluefrommultiplier*cr725_plannedtarget
+cr725_calculatedrevisedtargetvalue: =cr725_impactkpivaluefrommultiplier*cr725_revisedtarget
+cr725_currentyear: =Year(UTCToday())
+cr725_dateinpast: =If(cr725_date<Now(),"Yes","No")
+cr725_datetime: =DateAdd(cr725_date, -utcconversiontimezonecode)
+cr725_impactkpivaluefrommultiplier: =cr725_ImpactKPI.cr725_metrictovaluemultiplier
+cr725_kpiforecastvalue: =cr725_kpiforecasttarget * cr725_kpivaluetomultiplier
+cr725_kpiplannedvalue: =cr725_kpiplannedtarget * cr725_kpivaluetomultiplier
+cr725_kpivaluetomultiplier: =cr725_RelatedIdea.cr725_impactkpivaluetomultiplier
+cr725_plannedactual: =Decimal(cr725_plannednetbenefit) - Decimal(cr725_actualnetbenefit)
+cr725_plannednetbenefitcalc: =Decimal(cr725_plannedrevenueincrease)+Decimal(cr725_plannedcostreduction)-Decimal(cr725_costcapex)-Decimal(cr725_costopex)
+cr725_plannednetbenefitrs0: =Decimal(cr725_plannednetbenefit) * 0.421875
+cr725_plannednetbenefitrs1: |
+    =Decimal(cr725_plannednetbenefit) * 0.5625
+cr725_plannednetbenefitrs2: |
+    =Decimal(cr725_plannednetbenefit) * 0.75
+    
+cr725_plannednetbenefitrs3: |
+    =Decimal(cr725_plannednetbenefit) * 1
+cr725_projectimpactkpi: =cr725_RelatedIdea.cr725_ImpactKPI.cr725_name
+cr725_projectsite: =cr725_RelatedIdea.cr725_site
+cr725_relatedprojectclosed: =cr725_RelatedIdea.cr725_projectclosed
+cr725_startofcurrentmonth: =DateAdd(UTCNow(), - Day(UTCNow()) + 1)
+cr725_totalplannedbenefit: =cr725_plannednetbenefitcalc+cr725_kpiplannedvalue

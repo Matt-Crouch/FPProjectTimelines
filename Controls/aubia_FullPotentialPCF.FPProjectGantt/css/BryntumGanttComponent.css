@@ -1,0 +1,389 @@
+/* Ensure Bryntum Gantt fills parent container height */
+.bryntum-gantt-root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 1200px !important; /* Force large height to override test harness constraints */
+  min-height: 1200px !important;
+  max-height: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.bryntum-gantt-content {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Bryntum Gantt content wrapper */
+.bryntum-gantt-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  height: 1200px !important;
+  min-height: 1200px !important;
+  max-height: none !important;
+}
+
+/* Gantt wrapper styling */
+.gantt-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  height: 1200px !important; /* Force large height */
+  min-height: 1200px !important; /* Match the large height */
+  max-height: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* Bryntum Gantt sizing */
+.gantt-wrapper .b-gantt {
+  flex: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-top: none;
+}
+
+/* Toolbar styling */
+.b-toolbar {
+  width: 100%;
+  margin: 0;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* Test harness specific fixes */
+body, html {
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#pcf-root {
+  height: 1200px !important;
+  min-height: 1200px !important;
+  max-height: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Override any parent container height constraints */
+div[class*="harness"], 
+div[id*="harness"], 
+.pcf-container,
+.control-container,
+[data-control-name] {
+  height: 1200px !important;
+  min-height: 1200px !important;
+  max-height: none !important;
+}
+
+/* Resource Utilization Panel Visibility */
+.b-resourceutilization,
+.resource-utilization-panel {
+  background: #f5f5f5 !important;
+  border: 2px solid #007acc !important;
+  min-height: 400px !important;
+  height: 400px !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+.b-resourceutilization .b-grid {
+  min-height: 350px !important;
+  height: 350px !important;
+}
+
+.b-resourceutilization .b-timeline {
+  min-height: 350px !important;
+  height: 350px !important;
+}
+
+/* Left align task names */
+.b-grid-cell[data-column="name"] {
+  text-align: left !important;
+}
+
+.b-grid-cell[data-column="name"] .b-tree-cell-value {
+  text-align: left !important;
+}
+
+.b-grid-cell[data-column="name"] .b-tree-cell-value .b-tree-cell-text {
+  text-align: left !important;
+}
+
+/* More specific selectors for better targeting */
+.b-gantt .b-grid-cell[data-column="name"] {
+  text-align: left !important;
+}
+
+.b-gantt .b-grid-cell[data-column="name"] * {
+  text-align: left !important;
+}
+
+/* Left align task names */
+.b-grid-cell[data-column="name"] {
+  text-align: left !important;
+}
+
+/* Maximum specificity selectors */
+.bryntum-gantt-content .b-gantt .b-grid .b-grid-subgrid .b-grid-row .b-grid-cell[data-column="name"] {
+  text-align: left !important;
+}
+
+.bryntum-gantt-content .b-gantt .b-grid .b-grid-subgrid .b-grid-row .b-grid-cell[data-column="name"] .b-tree-cell-value {
+  text-align: left !important;
+}
+
+.bryntum-gantt-content .b-gantt .b-grid .b-grid-subgrid .b-grid-row .b-grid-cell[data-column="name"] .b-tree-cell-value .b-tree-cell-text {
+  text-align: left !important;
+}
+
+.bryntum-gantt-content .b-gantt .b-grid .b-grid-subgrid .b-grid-row .b-grid-cell[data-column="name"] * {
+  text-align: left !important;
+}
+
+/* Ensure the gantt body is properly sized */
+.bryntum-gantt-content .b-gantt .b-gantt-body {
+  height: 100% !important;
+  min-height: 200px !important;
+  overflow: auto !important;
+}
+
+/* Fix for the grid within gantt */
+.bryntum-gantt-content .b-gantt .b-grid {
+  height: 100% !important;
+  min-height: 200px !important;
+}
+
+/* Ensure proper scrolling */
+.bryntum-gantt-content .b-gantt .b-grid-body {
+  height: 100% !important;
+  overflow: auto !important;
+}
+
+/* Fix for timeline area */
+.bryntum-gantt-content .b-gantt .b-timeline {
+  height: 100% !important;
+  min-height: 200px !important;
+}
+
+/* Ensure splitter works properly */
+.bryntum-gantt-content .b-gantt .b-splitter {
+  height: 100% !important;
+}
+
+/* PCF Control specific styles */
+div[data-control-name*="FullPotential"] {
+  height: 100% !important;
+  min-height: 500px !important;
+}
+
+div[data-control-name*="FullPotential"] > div {
+  height: 100% !important;
+  min-height: 500px !important;
+}
+
+/* Ensure Bryntum Gantt widget fills available space */
+.b-gantt {
+  height: 100% !important;
+  min-height: 300px !important;
+  width: 100% !important;
+}
+
+.b-gantt .b-grid {
+  height: 100% !important;
+}
+
+.b-gantt .b-gantt-body {
+  height: 100% !important;
+}
+
+/* Fix for form containers */
+.ms-formpage-content .bryntum-gantt-root {
+  height: 60vh !important;
+  min-height: 500px !important;
+}
+
+/* Fix for tab containers */
+.ms-formsection-tab .bryntum-gantt-root {
+  height: 55vh !important;
+  min-height: 500px !important;
+}
+
+/* PowerApps specific container fixes */
+.ms-formsection-content .bryntum-gantt-root,
+.ms-formsection-content div[data-control-name*="FullPotential"] {
+  height: 60vh !important;
+  min-height: 500px !important;
+}
+
+/* Custom page container fixes */
+.ms-canvas-container .bryntum-gantt-root {
+  height: 80vh !important;
+  min-height: 600px !important;
+}
+
+/* General PowerApps form field container fixes */
+.ms-form-field-container .bryntum-gantt-root {
+  height: 50vh !important;
+  min-height: 400px !important;
+}
+
+/* Ensure the control container expands properly */
+div[data-control-name*="FPProjectGantt"] {
+  height: 100% !important;
+  min-height: 500px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+div[data-control-name*="FPProjectGantt"] > div {
+  height: 100% !important;
+  min-height: 500px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Bryntum toolbar alignment */
+.b-toolbar {
+  flex-shrink: 0;
+  min-height: 40px;
+}
+
+/* Loading spinner positioning */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 200px;
+}
+
+#root {
+  height: 100vh;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 80px;
+  height: 80px;
+  -webkit-animation: spin 2s linear infinite;
+  /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.gantt-header-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  gap: 10px;
+}
+
+
+.bryntum-gantt-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+
+.bryntum-gantt-content {
+  display: flex;
+  flex: 1 1 0%;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+
+.bryntum-toolbar-btn:hover {
+  background: #f0f0f0;
+  color: #1976d2;
+}
+
+.bryntum-toolbar-btn.active,
+.bryntum-toolbar-btn:active {
+  background: #e3eaff;
+  color: #1976d2;
+}
+
+/* Force left alignment for task name column and header */
+.b-grid-header[data-column-id="name"],
+.b-grid-cell[data-column-id="name"] {
+  text-align: left !important;
+  justify-content: flex-start !important;
+}
+
+/* Ensure Bryntum Gantt fills parent container height robustly */
+.bryntum-gantt-root,
+.bryntum-gantt-content,
+.bryntum-gantt-root > div,
+.bryntum-gantt-content > div {
+  height: 100% !important;
+  min-height: 0 !important;
+  flex: 1 1 0% !important;
+}
+
+/* Ensure Bryntum Gantt root and content have a minimum height for visibility */
+.bryntum-gantt-root,
+.bryntum-gantt-content {
+  min-height: 600px !important;
+  height: 100% !important;
+  flex: 1 1 0% !important;
+}
+
+/* PCF test container height override for local/test harness only */
+#control-host, .App, .component-root {
+  height: 100vh !important;
+  min-height: 600px !important;
+}
+
+/* Ensure Bryntum Gantt content is aligned to the top */
+.bryntum-gantt-root,
+.bryntum-gantt-content {
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+}

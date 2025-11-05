@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/MCrouch/source/repos/**)",
+      "Bash(npm install)",
+      "Bash(npm run build:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npm run version:patch:*)",
+      "Bash(pac pcf push:*)",
+      "Bash(pac solution:*)",
+      "Bash(pac pcf:*)",
+      "Bash(npm start)",
+      "Bash(node:*)",
+      "Bash(npm run version:minor:*)",
+      "Bash(pac admin:*)",
+      "Bash(pac data query:*)",
+      "Bash(unzip:*)",
+      "Bash(find:*)",
+      "Bash(pac org:*)",
+      "Read(//c/Users/MCrouch/Downloads/**)",
+      "Bash(pac env:*)",
+      "Bash(pac auth create:*)",
+      "Bash(pac auth select:*)",
+      "Bash(pac auth:*)",
+      "Bash(powershell:*)",
+      "Bash(pac canvas:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nv1.1.5: Fix department/site source and remove data limits\n\nMajor fixes for data loading and accuracy:\n\n- Changed department/site to read from task fields (aubia_relatedprojectdepartment/site) instead of project fields\n- Removed all $top query limits and implemented full pagination support\n- Added filter to exclude cancelled tasks (taskstate ne 3)\n- Now handles 7000+ users and thousands of tasks across 1000+ projects\n\nThis fixes issues where users were showing incorrect departments and not all resources were displaying.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git branch:*)",
+      "Bash(npm run publish:prep:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote:*)",
+      "Bash(git push)",
+      "Bash(npm run publish:aubia:*)",
+      "Bash(cat:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

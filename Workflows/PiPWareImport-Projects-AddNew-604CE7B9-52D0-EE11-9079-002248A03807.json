@@ -1,0 +1,116 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_40afe"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "8aeac1b6-496a-4fb4-b012-c8b3e116a1b9"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "subscriptionRequest/message": 1,
+              "subscriptionRequest/entityname": "cr725_bihubpipwareimportprojects",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/runas": 3,
+              "subscriptionRequest/name": "604ce7b9-52d0-ee11-9079-002248a03807"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Update_a_row": {
+          "runAfter": {
+            "Add_a_new_row": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "62d302d4-2fcf-4518-ae1f-3f303f6d769f"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihubpipwareimportprojectses",
+              "recordId": "@triggerOutputs()?['body/cr725_bihubpipwareimportprojectsid']",
+              "item/cr725_fphubprojectsrowid": "@body('Add_a_new_row')?['cr725_bihub_ideasid']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          }
+        },
+        "Add_a_new_row": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "d1c7fb53-7fc4-4c9d-a7ef-1a95f13f616e"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_ideases",
+              "item/cr725_projectfocusyear": 2024,
+              "item/cr725_title": "@triggerOutputs()?['body/cr725_ideasideatitle']",
+              "item/cr725_contextandoradditionalinformation": "@triggerOutputs()?['body/cr725_additionaldetails']",
+              "item/cr725_currentprojectstatus": 0,
+              "item/cr725_department": "@triggerBody()?['cr725_departmentvalue']",
+              "item/cr725_excecutionrisk": 747870002,
+              "item/cr725_fullassetpotentialinitative": true,
+              "item/cr725_importedfromwhichplatform": "PiPWare",
+              "item/cr725_investmentrequired": 747870002,
+              "item/cr725_keystoneproject": false,
+              "item/cr725_projectstatusrationale": "@triggerOutputs()?['body/cr725_ideascomments']",
+              "item/cr725_paybackperiod": 747870002,
+              "item/cr725_projectdescription": "@triggerOutputs()?['body/cr725_description']",
+              "item/cr725_projectimportedsynced": true,
+              "item/cr725_ProjectOwner@odata.bind": "/systemusers(34c6766e-fc4d-ed11-bba3-000d3adf704d)",
+              "item/cr725_projecttype": 1,
+              "item/cr725_referenceprojectid": "@triggerOutputs()?['body/cr725_ideasideacode']",
+              "item/cr725_site": "@triggerOutputs()?['body/cr725_sitevalue']",
+              "item/cr725_strategicimportance": 747870002,
+              "item/cr725_timetodeliver": 747870002,
+              "item/cr725_WorkProgram@odata.bind": "/cr725_workprograms(c0b61862-61d0-ee11-9079-000d3ab34989)"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

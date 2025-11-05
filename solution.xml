@@ -1,0 +1,561 @@
+<ImportExportXml version="9.2.25092.139" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25092.139" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25093.00138">
+  <SolutionManifest>
+    <UniqueName>BusinessImprovementHub</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Full Asset Potential Hub" languagecode="1033" />
+      <LocalizedName description="Hub de potencial total de ativos" languagecode="1046" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>1.2.2.35</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>AU_Business_Intelligence_and_Analytics_Team</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="AU_Business_Intelligence_and_Analytics_Team" languagecode="1033" />
+        <LocalizedName description="Equipe de Business Intelligence e Análise da UA" languagecode="1046" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="AU_Business_Intelligence_and_Analytics_Team" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>aubia</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>54736</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="aubia_asset" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_automationasset" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_bihubidea" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_bihubideas" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_bihub_ideas" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_bihub_kpi" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_bihub_kpiperformance" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_bryntumgantttasks" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_dataassets" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_fapteamactions" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_fphubparentproject" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_fphubrisks" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_ideafinancials" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_meetingactions" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_metricdata" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_metrics" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_opportunity" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_primarykpi" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_projecttasks" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_reportingassets" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_requests" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_resourceassignments" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_site" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_taskdependencies" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_tasks" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_workitems" behavior="0" />
+      <RootComponent type="1" schemaName="cr725_workprogram" behavior="0" />
+      <RootComponent type="1" schemaName="new_biateamrequests" behavior="2" />
+      <RootComponent type="1" schemaName="new_imageattachment" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_agaexternalconsultants" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_department" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_externalspendsavingstype" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_financialbenefitrealizationconfidence" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_globalsitelist" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_month" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_primarykpi" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_requestsubtype" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_requesttype" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_site" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_subworkstream" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_supplychaincategorytags" behavior="0" />
+      <RootComponent type="9" schemaName="cr725_year" behavior="0" />
+      <RootComponent type="20" id="{2bb01086-7ad4-ee11-904d-0022489de301}" behavior="0" />
+      <RootComponent type="20" id="{37efcae8-e930-ee11-bdf4-000d3ab1b375}" behavior="0" />
+      <RootComponent type="20" id="{398e88dd-d94a-ee11-be6e-000d3ab34989}" behavior="0" />
+      <RootComponent type="20" id="{526946ff-477c-ee11-8179-002248a03807}" behavior="0" />
+      <RootComponent type="20" id="{aec97003-c54a-ee11-be6e-000d3ab34d65}" behavior="0" />
+      <RootComponent type="29" id="{000e2f53-83f0-ee11-904c-0022489de301}" behavior="0" />
+      <RootComponent type="29" id="{16ca5c0d-caf6-ee11-a1fd-000d3ab9aacb}" behavior="0" />
+      <RootComponent type="29" id="{1725e156-6a29-f011-8c4e-002248a383df}" behavior="0" />
+      <RootComponent type="29" id="{2377a84e-0fec-ee11-a204-000d3ab1baf6}" behavior="0" />
+      <RootComponent type="29" id="{33bd5c9f-d9eb-ee11-a203-0022489f6231}" behavior="0" />
+      <RootComponent type="29" id="{382bebd8-1055-ed11-bba2-000d3adf718d}" behavior="0" />
+      <RootComponent type="29" id="{39d9e3d4-6d3d-ee11-bdf4-000d3ab3cefa}" behavior="0" />
+      <RootComponent type="29" id="{4f76a48f-a843-ee11-be6e-000d3ab34989}" behavior="0" />
+      <RootComponent type="29" id="{604ce7b9-52d0-ee11-9079-002248a03807}" behavior="0" />
+      <RootComponent type="29" id="{634f7c4b-f881-ef11-ac21-0022489aff74}" behavior="0" />
+      <RootComponent type="29" id="{69e195ea-89fb-ee11-a1fe-0022489f6231}" behavior="0" />
+      <RootComponent type="29" id="{6a7a9e8c-675f-ef11-bfe3-000d3ab0bf53}" behavior="0" />
+      <RootComponent type="29" id="{6b7a9e8c-675f-ef11-bfe3-000d3ab0bf53}" behavior="0" />
+      <RootComponent type="29" id="{7e449e76-4c6f-ee11-9ae7-000d3a68506b}" behavior="0" />
+      <RootComponent type="29" id="{8a59f08c-675f-ef11-bfe3-6045bddec7aa}" behavior="0" />
+      <RootComponent type="29" id="{95de74e9-89fb-ee11-a1ff-000d3ab1baf6}" behavior="0" />
+      <RootComponent type="29" id="{966d02d9-3edf-ee11-904c-002248996773}" behavior="0" />
+      <RootComponent type="29" id="{96de74e9-89fb-ee11-a1ff-000d3ab1baf6}" behavior="0" />
+      <RootComponent type="29" id="{b3c781fa-a943-ee11-be6e-002248a03807}" behavior="0" />
+      <RootComponent type="29" id="{c10b042d-7229-f011-8c4e-7c1e5236ec11}" behavior="0" />
+      <RootComponent type="29" id="{c1c631e2-6c29-f011-8c4e-7c1e5236ec11}" behavior="0" />
+      <RootComponent type="29" id="{cf3bd3e9-89fb-ee11-a1fe-000d3ab8bc20}" behavior="0" />
+      <RootComponent type="29" id="{d264b398-8a42-ee11-bdf3-000d3ab3c234}" behavior="0" />
+      <RootComponent type="29" id="{d779d093-e542-f011-8779-7ced8d2dda27}" behavior="0" />
+      <RootComponent type="29" id="{df6310ea-89fb-ee11-a1fe-6045bdddc0ca}" behavior="0" />
+      <RootComponent type="60" id="{10e7be8d-d467-ee11-9ae6-000d3ab347d0}" behavior="0" />
+      <RootComponent type="60" id="{1ad82f46-fc3e-ee11-bdf3-000d3ab3cfd3}" behavior="0" />
+      <RootComponent type="60" id="{228b497a-fa3e-ee11-bdf3-000d3ab3cfd3}" />
+      <RootComponent type="60" id="{43d8bf49-f51e-ef11-840a-00224899bfb9}" behavior="0" />
+      <RootComponent type="60" id="{49173d66-ccce-ee11-9079-000d3ab34989}" behavior="0" />
+      <RootComponent type="60" id="{644ce13a-e01e-ef11-840a-000d3adc2651}" behavior="0" />
+      <RootComponent type="60" id="{6d953963-53c9-ee11-9079-000d3ab1baf6}" behavior="0" />
+      <RootComponent type="60" id="{6e397e55-1468-ee11-9ae7-002248a03807}" behavior="0" />
+      <RootComponent type="60" id="{82b0fb77-3c45-ee11-be6e-002248a03807}" behavior="0" />
+      <RootComponent type="60" id="{84be2667-1468-ee11-9ae7-000d3ab1baf6}" behavior="0" />
+      <RootComponent type="60" id="{85679468-b73f-ee11-bdf3-000d3ab1b3e1}" behavior="0" />
+      <RootComponent type="60" id="{aa5130c2-043f-ee11-bdf3-000d3ab3cefa}" behavior="0" />
+      <RootComponent type="60" id="{b956d342-ae4a-ee11-be6e-000d3ab34989}" behavior="0" />
+      <RootComponent type="60" id="{bc36df84-8748-ee11-be6d-000d3ab34989}" behavior="0" />
+      <RootComponent type="60" id="{d0cc0e6f-a148-ee11-be6d-002248a03807}" behavior="0" />
+      <RootComponent type="60" id="{d156ea53-58d1-ee11-9078-000d3ab21c58}" behavior="0" />
+      <RootComponent type="60" id="{d7ab9a8e-1468-ee11-9ae7-000d3ab3c234}" behavior="0" />
+      <RootComponent type="60" id="{d9f29d66-b73f-ee11-bdf3-000d3ab1b7b8}" behavior="0" />
+      <RootComponent type="60" id="{da6d9504-a655-ed11-bba2-000d3adf778b}" />
+      <RootComponent type="60" id="{dd109134-f51e-ef11-840a-00224899bfb9}" behavior="0" />
+      <RootComponent type="61" schemaName="aubia_projectsatusfieldlock" behavior="0" />
+      <RootComponent type="61" schemaName="aubia_TESTDEV" behavior="0" />
+      <RootComponent type="61" schemaName="cr725_FPHubCustomScripts" behavior="0" />
+      <RootComponent type="61" schemaName="cr725_fpteamtab" behavior="0" />
+      <RootComponent type="61" schemaName="cr725_hideExternalSpendTab" behavior="0" />
+      <RootComponent type="61" schemaName="cr725_spendbetter" behavior="0" />
+      <RootComponent type="61" schemaName="cr725_Waterstewardship" behavior="0" />
+      <RootComponent type="61" schemaName="new_biteam" behavior="0" />
+      <RootComponent type="62" schemaName="cr725_BusinessImprovementHub" behavior="0" />
+      <RootComponent type="66" schemaName="aubia_Aubia.ExecutionReview" behavior="0" />
+      <RootComponent type="66" schemaName="aubia_aubia.ExternalSpendImpact" behavior="0" />
+      <RootComponent type="66" schemaName="aubia_aubia.FPDashboardControl" behavior="0" />
+      <RootComponent type="66" schemaName="aubia_aubia.FPExecutionKPI" behavior="0" />
+      <RootComponent type="66" schemaName="aubia_aubia.ImpactKPI" behavior="0" />
+      <RootComponent type="66" schemaName="aubia_FPProjectHealth.ProjectHealthComponent" behavior="0" />
+      <RootComponent type="66" schemaName="aubia_FullPotentialPCF.FPProjectGantt" behavior="0" />
+      <RootComponent type="80" schemaName="cr725_BusinessImprovementHub" behavior="0" />
+      <RootComponent type="300" schemaName="aubia_fphubprojectfinancials_8e0d0" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_actions_4da13" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_alltasks_4e5d5" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_businessimprovementhubdefaultcommandlibrary_c0879" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_executionreview_bcf1b" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_fullgantt_c0536" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_impactreviewtest_aed59" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_impactreview_28015" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_keyfinancials_8577a" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_leagetablesdata_dd956" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_meetingactions_13fc7" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_monthlyreview_6cc2a" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_myoutstandingtasks_be9b0" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_trainingguides_94a3a" behavior="0" />
+      <RootComponent type="300" schemaName="cr725_waterstewardshipprojects_65ea6" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="cr725_bihubpipwareimportprojects" displayName="FP Hub - PiPWare Import - Projects" solution="Active" />
+        <Dependent type="29" displayName="PiPWare Import - Projects - Add New" id="{604ce7b9-52d0-ee11-9079-002248a03807}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cr725_bihubpipwareimportprojects" displayName="FP Hub - PiPWare Import - Projects" solution="Active" />
+        <Dependent type="29" displayName="PiPWare Import - Delete Rows" id="{df6310ea-89fb-ee11-a1fe-6045bdddc0ca}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cr725_queries" displayName="Queries" solution="Active" />
+        <Dependent type="1" schemaName="cr725_dataassets" displayName="Data Assets" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="new_biateamrequests" displayName="BI&amp;A Team Requests" solution="Active" />
+        <Dependent type="1" schemaName="new_biateamrequests" displayName="BI&amp;A Team Requests" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="cr725_name" displayName="Solution Name" parentSchemaName="cr725_solution" parentDisplayName="Solution" solution="Active" />
+        <Dependent type="10" schemaName="cr725_cr725_reportingassets_RelatedSolutionID_c" displayName="cr725_cr725_reportingassets_RelatedSolutionID_c" parentSchemaName="cr725_solution" parentDisplayName="Solution" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="cr725_name" displayName="Solution Name" parentSchemaName="cr725_solution" parentDisplayName="Solution" solution="Active" />
+        <Dependent type="10" schemaName="cr725_cr725_workitems_RelatedSolution_cr725_sol" displayName="cr725_cr725_workitems_RelatedSolution_cr725_sol" parentSchemaName="cr725_solution" parentDisplayName="Solution" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="cr725_name" displayName="Name" parentSchemaName="cr725_sourcesystems" parentDisplayName="Source Systems" solution="Active" />
+        <Dependent type="10" schemaName="cr725_cr725_dataassets_SourceSystemsUtilised_cr" displayName="cr725_cr725_dataassets_SourceSystemsUtilised_cr" parentSchemaName="cr725_sourcesystems" parentDisplayName="Source Systems" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="new_sinumber" displayName="SI Number" parentSchemaName="new_planningsiregister" parentDisplayName="SI Register" solution="Active" />
+        <Dependent type="10" schemaName="new_new_imageattachment_SIRegisterLookup_new_" displayName="new_new_imageattachment_SIRegisterLookup_new_" parentSchemaName="new_planningsiregister" parentDisplayName="SI Register" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="parametervalue" displayName="Value" parentSchemaName="processstage" parentDisplayName="Process Stage" solution="MicrosoftFlowExtensionsCore (1.9.26.0)">
+          <package appName="MicrosoftFlowExtensionsCore" version="1.9.26.0">MicrosoftFlowExtensionsAnchor (1.9.26.0)</package>
+        </Required>
+        <Dependent type="2" schemaName="cr725_activestageid" displayName="Active Stage ID" parentSchemaName="cr725_bihubidea" parentDisplayName="FPHub Stage Gate Business Process" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="parametervalue" displayName="Value" parentSchemaName="processstage" parentDisplayName="Process Stage" solution="MicrosoftFlowExtensionsCore (1.9.26.0)">
+          <package appName="MicrosoftFlowExtensionsCore" version="1.9.26.0">MicrosoftFlowExtensionsAnchor (1.9.26.0)</package>
+        </Required>
+        <Dependent type="2" schemaName="cr725_projectstagegate" displayName="Project Stage Gate" parentSchemaName="cr725_bihubidea" parentDisplayName="FPHub Stage Gate Business Process" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="BusinessApplicationPlatformRole" solution="S2SApplicationRoles (1.0.0.113)" id="{02123b67-66ae-4a69-8cdc-6473b94ad1a9}">
+          <package appName="Microsoft S2SCDSCoreApplication Package" version="1.0.1.29">MicrosoftS2SApplicationIdentitiesCoreTst (1.0.1.29)</package>
+        </Required>
+        <Dependent type="80" schemaName="cr725_BusinessImprovementHub" displayName="Full Asset Potential Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="PowerAppsRPRole" solution="S2SApplicationRoles (1.0.0.113)" id="{527c7b12-e5ac-4408-9f46-ecc762397544}">
+          <package appName="Microsoft S2SCDSCoreApplication Package" version="1.0.1.29">MicrosoftS2SApplicationIdentitiesCoreTst (1.0.1.29)</package>
+        </Required>
+        <Dependent type="80" schemaName="cr725_BusinessImprovementHub" displayName="Full Asset Potential Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="EAC Reader App Access" solution="AdvancedAnalyticsInfra (1.0.9.0)" id="{7be5a395-6b58-4f8c-908f-97dc8810fc50}">
+          <package appName="ManagedDataLakeApp Package" version="1.0.7.13">msdyn_SynapseLink (1.0.7.13)</package>
+        </Required>
+        <Dependent type="80" schemaName="cr725_BusinessImprovementHub" displayName="Full Asset Potential Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="Power BI Embedded App Access" solution="S2SApplicationRoles (1.0.0.113)" id="{8278be3d-dd12-4187-aac6-69a0543ebd85}">
+          <package appName="Microsoft S2SCDSCoreApplication Package" version="1.0.1.29">MicrosoftS2SApplicationIdentitiesCoreTst (1.0.1.29)</package>
+        </Required>
+        <Dependent type="80" schemaName="cr725_BusinessImprovementHub" displayName="Full Asset Potential Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="App Opener" solution="AuthorizationCore (1.126.0.0)" id="{979144c2-989b-41a5-a146-6b3ea4130e8c}">
+          <package appName="Authorization Package" version="1.7.0.0">msft_PrivilegeChecker (1.7.0.0)</package>
+        </Required>
+        <Dependent type="80" schemaName="cr725_BusinessImprovementHub" displayName="Full Asset Potential Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="Dataverse Search Role" solution="S2SApplicationRoles (1.0.0.113)" id="{a0a59a4a-b5a8-4e6f-a094-a866573c17d4}">
+          <package appName="Microsoft S2SCDSCoreApplication Package" version="1.0.1.29">MicrosoftS2SApplicationIdentitiesCoreTst (1.0.1.29)</package>
+        </Required>
+        <Dependent type="80" schemaName="cr725_BusinessImprovementHub" displayName="Full Asset Potential Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="Portal Application User" solution="S2SApplicationRoles (1.0.0.113)" id="{a75a6d67-1730-4298-8fc7-af7e93064fa1}">
+          <package appName="Microsoft S2SCDSCoreApplication Package" version="1.0.1.29">MicrosoftS2SApplicationIdentitiesCoreTst (1.0.1.29)</package>
+        </Required>
+        <Dependent type="80" schemaName="cr725_BusinessImprovementHub" displayName="Full Asset Potential Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="Approvals User" solution="msdyn_FlowApprovalsCore (2.2.8.0)" id="{b9b08637-acf6-e711-a95a-000d3a11f5ee}">
+          <package appName="msdyn_FlowApprovals" version="2.2.8.0">msdyn_FlowApprovals (2.2.8.0)</package>
+        </Required>
+        <Dependent type="80" schemaName="cr725_BusinessImprovementHub" displayName="Full Asset Potential Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="20" displayName="Power Platform Dataflows Service Role" solution="S2SApplicationRoles (1.0.0.113)" id="{f2550a3a-f9c6-4409-bf77-8d4ceadb27ab}">
+          <package appName="Microsoft S2SCDSCoreApplication Package" version="1.0.1.29">MicrosoftS2SApplicationIdentitiesCoreTst (1.0.1.29)</package>
+        </Required>
+        <Dependent type="80" schemaName="cr725_BusinessImprovementHub" displayName="Full Asset Potential Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="61" schemaName="SLAManagement/msdyn_advancedpause_feature_message.html" displayName="SLAManagement/msdyn_advancedpause_feature_message.html" solution="msdynce_ServiceLevelAgreementExtension (9.0.25073.1005)">
+          <package appName="msdynce_ServiceLevelAgreement" version="9.0.25073.1005">msdynce_ServiceLevelAgreementAnchor (9.0.25073.1005)</package>
+        </Required>
+        <Dependent type="80" schemaName="cr725_BusinessImprovementHub" displayName="Full Asset Potential Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="aubia_aubia.GanttChart" displayName="aubia_aubia.GanttChart" solution="Active" />
+        <Dependent type="60" displayName="Information" parentDisplayName="Project" id="{e2dee110-ddfc-4712-a341-d6a73b457702}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="be_pcf.FileUploader" displayName="be_pcf.FileUploader" solution="befileuploaderpcf (1.0.0.2)" />
+        <Dependent type="60" displayName="Information" parentDisplayName="Data Assets" id="{7ae8bffb-7f3d-4dfb-bd93-2cf5be41fc39}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="be_pcf.FileUploader" displayName="be_pcf.FileUploader" solution="befileuploaderpcf (1.0.0.2)" />
+        <Dependent type="60" displayName="Information" parentDisplayName="Project" id="{e2dee110-ddfc-4712-a341-d6a73b457702}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="m365_Workflows.FilesControl" displayName="m365_Workflows.FilesControl" solution="CollaborationToolkitFiles (1.43.0.0)" />
+        <Dependent type="60" displayName="Information" parentDisplayName="Reporting Assets" id="{3a5bd229-edd0-499b-a790-d977009c9179}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="26" schemaName="League Table - Processing - This Year" displayName="League Table - Processing - This Year" parentSchemaName="cr725_metricdata" parentDisplayName="Metric Data" id="{1f352f70-560b-ef11-9f89-00224899bfb9}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="26" schemaName="Sunrise Dam - Jumbos" displayName="Sunrise Dam - Jumbos" parentSchemaName="cr725_metricdata" parentDisplayName="Metric Data" id="{1f984d6d-c7f6-ee11-a1fd-6045bdddc0ca}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="26" schemaName="League Table - UG Mining - This Year" displayName="League Table - UG Mining - This Year" parentSchemaName="cr725_metricdata" parentDisplayName="Metric Data" id="{2b5b251d-560b-ef11-9f89-6045bde0e31d}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="26" schemaName="League Table - UG Mining - Last Month Data Collection" displayName="League Table - UG Mining - Last Month Data Collection" parentSchemaName="cr725_metricdata" parentDisplayName="Metric Data" id="{6a7f1c25-8ff7-ee11-a1fd-6045bdddc0ca}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="26" schemaName="League Table - Processing - Last Month Data Collection" displayName="League Table - Processing - Last Month Data Collection" parentSchemaName="cr725_metricdata" parentDisplayName="Metric Data" id="{ffe0f74f-96f7-ee11-a1fd-6045bdddc0ca}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="Metrics" id="{1d1a294f-ce08-ee11-8f6e-000d3adf7292}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Water Stewardship Form" parentDisplayName="Project" id="{3ae0415b-e990-ef11-8a6a-0022489f1ccf}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Site Metrics" parentDisplayName="Site" id="{585dc06b-de08-ee11-8f6e-002248a1cd2f}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="Project" id="{e2dee110-ddfc-4712-a341-d6a73b457702}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="68" id="{ad7094fd-154c-4709-82c3-8fe4671c0721}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="68" id="{d2eb5e5c-287d-43f1-9dbf-643ee6f42b86}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.Canvas.CanvasControl" displayName="MscrmControls.Canvas.CanvasControl" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="Opportunity" id="{fd0db7f7-7cef-4f19-991b-19f3d9ac8148}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="Task" id="{12cfadc6-e715-45a3-8ffb-5d2ddfc2f231}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Water Stewardship Form" parentDisplayName="Project" id="{3ae0415b-e990-ef11-8a6a-0022489f1ccf}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="FAP Team Actions" id="{63cd020c-2b59-4d63-965f-f529444225ca}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="Project" id="{e2dee110-ddfc-4712-a341-d6a73b457702}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.Grid.GridControl" displayName="MscrmControls.Grid.GridControl" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Site Metrics" parentDisplayName="Site" id="{585dc06b-de08-ee11-8f6e-002248a1cd2f}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.Grid.GridControl" displayName="MscrmControls.Grid.GridControl" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="Project" id="{e2dee110-ddfc-4712-a341-d6a73b457702}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.Grid.GridControl" displayName="MscrmControls.Grid.GridControl" solution="BaseCustomControlsCore (9.0.2509.2010)">
+          <package appName="Base Custom Controls" version="9.0.2509.2010">BaseCustomControlsCore (9.0.2509.2010)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="Opportunity" id="{fd0db7f7-7cef-4f19-991b-19f3d9ac8148}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.RichTextEditor.RichTextEditorControl" displayName="MscrmControls.RichTextEditor.RichTextEditorControl" solution="msdyn_RichTextEditor (1.25092.3.7784)">
+          <package appName="msdynce_Activities" version="9.0.25085.250826001">msdynce_EnableUCIByDefault (9.0.25085.250826001)</package>
+          <package appName="msdyn_CustomControlsExtended" version="1.25092.3.5213">msdyn_TimelineExtended (1.25092.3.5213)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="FP Hub Parent Project" id="{23df08d9-fcc8-43e6-a1f6-595335d1c84e}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="mv_UniversalGanttGridComponent.UniversalGanttChartComponent" displayName="mv_UniversalGanttGridComponent.UniversalGanttChartComponent" solution="UniversalGanttChartSolution (1.5)" />
+        <Dependent type="60" displayName="Water Stewardship Form" parentDisplayName="Project" id="{3ae0415b-e990-ef11-8a6a-0022489f1ccf}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="mv_UniversalGanttGridComponent.UniversalGanttChartComponent" displayName="mv_UniversalGanttGridComponent.UniversalGanttChartComponent" solution="UniversalGanttChartSolution (1.5)" />
+        <Dependent type="60" displayName="Information" parentDisplayName="Project" id="{e2dee110-ddfc-4712-a341-d6a73b457702}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="aubia_dataassetcategory" displayName="Data Asset Category" solution="Active" />
+        <Dependent type="2" schemaName="cr725_category" displayName="Category" parentSchemaName="cr725_dataassets" parentDisplayName="Data Assets" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr725_assetstatus" displayName="Asset Status" solution="Active" />
+        <Dependent type="2" schemaName="cr725_assetstatus" displayName="Asset Status" parentSchemaName="cr725_automationasset" parentDisplayName="Automation Asset" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr725_assetstatus" displayName="Asset Status" solution="Active" />
+        <Dependent type="2" schemaName="cr725_assetstatus" displayName="Asset Status" parentSchemaName="cr725_reportingassets" parentDisplayName="Reporting Assets" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr725_automationassettype" displayName="Automation Asset Type" solution="Active" />
+        <Dependent type="2" schemaName="cr725_automationassettype" displayName="Automation Asset Type" parentSchemaName="cr725_automationasset" parentDisplayName="Automation Asset" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr725_kpimeasuretype" displayName="KPI Measure Type" solution="Active" />
+        <Dependent type="2" schemaName="cr725_kpimeasuretype" displayName="KPI Measure Type" parentSchemaName="cr725_bihub_kpi" parentDisplayName="KPI" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr725_reportingassettype" displayName="Reporting Asset Type" solution="Active" />
+        <Dependent type="2" schemaName="cr725_reportingassettype" displayName="Reporting Asset Type" parentSchemaName="cr725_reportingassets" parentDisplayName="Reporting Assets" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr725_workitemcategory" displayName="Work Item Category" solution="Active" />
+        <Dependent type="2" schemaName="cr725_workitemcategory" displayName="Work Item Category" parentSchemaName="cr725_workitems" parentDisplayName="Work Items" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr725_workitemclassification" displayName="Work Item Classification" solution="Active" />
+        <Dependent type="2" schemaName="cr725_workitemclassification" displayName="Work Item Classification" parentSchemaName="cr725_workitems" parentDisplayName="Work Items" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="cr725_workitemstatus" displayName="Work Item Status" solution="Active" />
+        <Dependent type="2" schemaName="cr725_status" displayName="Status" parentSchemaName="cr725_workitems" parentDisplayName="Work Items" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="9" schemaName="yearlymonth_options" displayName="Month" solution="msdynce_ActivitiesPatch (9.0.25091.250901001)">
+          <package appName="msdynce_Activities" version="9.0.25085.250826001">msdynce_EnableUCIByDefault (9.0.25085.250826001)</package>
+        </Required>
+        <Dependent type="2" schemaName="cr725_month" displayName="Month" parentSchemaName="cr725_metricdata" parentDisplayName="Metric Data" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_3b496" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_3b496" />
+        <Dependent type="29" displayName="Auto Execution KPI Table Generation" id="{c10b042d-7229-f011-8c4e-7c1e5236ec11}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_40afe" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_40afe" />
+        <Dependent type="29" displayName="Benefits Exchange Rate Conversion" id="{000e2f53-83f0-ee11-904c-0022489de301}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_40afe" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_40afe" />
+        <Dependent type="29" displayName="Auto Date Creation in Metric Data" id="{16ca5c0d-caf6-ee11-a1fd-000d3ab9aacb}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_40afe" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_40afe" />
+        <Dependent type="29" displayName="FPHub DT Notification Workflow" id="{2377a84e-0fec-ee11-a204-000d3ab1baf6}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_40afe" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_40afe" />
+        <Dependent type="29" displayName="PiPWare Import - Projects - Add New" id="{604ce7b9-52d0-ee11-9079-002248a03807}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_40afe" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_40afe" />
+        <Dependent type="29" displayName="Task Description Translation" id="{7e449e76-4c6f-ee11-9ae7-000d3a68506b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_40afe" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_40afe" />
+        <Dependent type="29" displayName="Key Priority Row Generator" id="{966d02d9-3edf-ee11-904c-002248996773}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_40afe" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_40afe" />
+        <Dependent type="29" displayName="Auto Date Creation in BI Hub Financials" id="{b3c781fa-a943-ee11-be6e-002248a03807}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedcommondataserviceforapps_59d92" solution="Active" id.connectionreferencelogicalname="new_sharedcommondataserviceforapps_59d92" />
+        <Dependent type="29" displayName="FPHUB - League Tables - Truck Calendar Time" id="{96de74e9-89fb-ee11-a1ff-000d3ab1baf6}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedwebcontents_f132b" solution="Active" id.connectionreferencelogicalname="new_sharedwebcontents_f132b" />
+        <Dependent type="29" displayName="FPHub Project - Overdue Task Count" id="{6b7a9e8c-675f-ef11-bfe3-000d3ab0bf53}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AllowNotificationsEarlyAccess" solution="AppNotifications (10.0.0.16)" id.uniquename="AllowNotificationsEarlyAccess">
+          <package appName="PowerAppsUnifiedClientExtensionApp Package" version="1.0.0.62">msft_PowerAppsUnifiedClientInfraExtensions (1.0.0.62)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=cr725_BusinessImprovementHub,settingdefinitionid.uniquename=AllowNotificationsEarlyAccess" id.parentappmoduleid.uniquename="cr725_BusinessImprovementHub" id.settingdefinitionid.uniquename="AllowNotificationsEarlyAccess" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="FluentThemingPreview" solution="msdyn_PowerAppsThemingSettings (1.0.0.13)" id.uniquename="FluentThemingPreview">
+          <package appName="PowerAppsThemingApp Package" version="1.0.0.12">PowerAppsThemingApp_Anchor (1.0.0.12)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=cr725_BusinessImprovementHub,settingdefinitionid.uniquename=FluentThemingPreview" id.parentappmoduleid.uniquename="cr725_BusinessImprovementHub" id.settingdefinitionid.uniquename="FluentThemingPreview" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="msdyn_TimelineModernization" solution="msdyn_TimelineExtended (1.25092.3.5213)" id.uniquename="msdyn_TimelineModernization">
+          <package appName="msdyn_CustomControlsExtended" version="1.25092.3.5213">msdyn_TimelineExtended (1.25092.3.5213)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=cr725_BusinessImprovementHub,settingdefinitionid.uniquename=msdyn_TimelineModernization" id.parentappmoduleid.uniquename="cr725_BusinessImprovementHub" id.settingdefinitionid.uniquename="msdyn_TimelineModernization" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

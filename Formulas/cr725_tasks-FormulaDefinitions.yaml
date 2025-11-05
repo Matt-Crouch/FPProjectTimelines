@@ -1,0 +1,33 @@
+cr725_actualduration: =DateDiff(actualstart,actualend)
+cr725_actualstartdatetonow: =DateDiff(cr725_revisedactualstart,DateAdd(UTCNow(),0))
+cr725_daystoplannedfinishdate: =DateDiff(cr725_revisedactualfinish,DateAdd(UTCNow(),0))
+cr725_daystoplannedstartdate: =DateDiff(cr725_revisedactualstart,DateAdd(UTCNow(),0))
+cr725_duewithin7days: |-
+    =If(And(cr725_daystoplannedfinishdate<>Blank(),cr725_daystoplannedfinishdate>0,cr725_daystoplannedfinishdate<=7,cr725_taskstatecolour<> "#90df8c", cr725_taskstatecolour<> "#bfc9bd"),"Yes",Blank())
+cr725_finishdateslippage: =DateDiff(cr725_plannedfinish,cr725_revisedactualfinish)
+cr725_overdue: |
+    =If(cr725_overduetostart<>Blank(),"Overdue",
+    cr725_overduetofinish<>Blank(),"Overdue",
+    Blank())
+cr725_overduecount: |-
+    =If(cr725_taskstatecolour= "#bfc9bd" And cr725_daystoplannedstartdate > 0 ,1,Blank())
+cr725_overduetofinish: |-
+    =If(cr725_taskstatecolour<> "#90df8c" And cr725_taskstatecolour<> "#969696" And cr725_daystoplannedfinishdate>0 And statecode = cr725_tasks_cr725_tasks_statecode.'0',"⚠️ Overdue to finish by "&Text(cr725_daystoplannedfinishdate,"##")&" Days")
+cr725_overduetofinishcount: |
+    =If(cr725_taskstatecolour<> "#90df8c" And cr725_taskstatecolour<> "#bfc9bd" And cr725_daystoplannedfinishdate > 0 ,1,Blank())
+    
+cr725_overduetostart: |-
+    =If(cr725_taskstatecolour= "#bfc9bd" And cr725_taskstatecolour<> "#969696" And cr725_daystoplannedstartdate>0 And statecode = cr725_tasks_cr725_tasks_statecode.'0', "⚠️ Overdue to start by "&Text(cr725_daystoplannedstartdate,"##")&" Days")
+cr725_overduetotalcount: =If(cr725_overdue="Overdue",1,0)
+cr725_plannedduration: =DateDiff(scheduledstart,scheduledend)
+cr725_plannedfinishtext: =cr725_plannedfinish
+cr725_plannedstartdatetext: =cr725_plannedstart
+cr725_projectstatus: =cr725_RelatedIdea_cr725_Tasks.cr725_projectstage
+cr725_relatedprojectsite: =cr725_RelatedIdea_cr725_Tasks.cr725_site
+cr725_revisedfinishindatetime: =cr725_revisedactualfinish
+cr725_slippagedays: =DateDiff(cr725_plannedstart,cr725_revisedactualstart)
+cr725_staringinnext7days: |-
+    =If(And(cr725_daystoplannedstartdate<>Blank(),cr725_daystoplannedstartdate>0,cr725_daystoplannedstartdate<=7,cr725_taskstatecolour<> "#90df8c", cr725_taskstatecolour<> "#bfc9bd"),"Yes",Blank())
+cr725_startinginnext30days: |-
+    =If(And(cr725_daystoplannedstartdate<>Blank(),cr725_daystoplannedstartdate>0,cr725_daystoplannedstartdate<=30,cr725_taskstatecolour<> "#90df8c", cr725_taskstatecolour<> "#bfc9bd"),"Yes",Blank())
+cr725_taskorigin: =If(cr725_RelatedIdea_cr725_Tasks.cr725_id = Blank(),"Meeting Action","Project Task")

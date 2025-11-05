@@ -1,0 +1,140 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "impersonation": {},
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "aubia_sharedcommondataserviceforapps_6ef6a"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_teams": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "aubia_sharedteams_03271"
+        },
+        "api": {
+          "name": "shared_teams"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "415aa285-4f69-4ffc-8247-81ba5c78a372"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "subscriptionRequest/message": 2,
+              "subscriptionRequest/entityname": "cr725_bihubpipwareimportprojects",
+              "subscriptionRequest/scope": 4
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Delete_a_row": {
+          "runAfter": {
+            "Compose": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2522ff15-1a67-4b34-8eb5-5fdb0914be22"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_bihub_ideases",
+              "recordId": "@triggerOutputs()?['body/cr725_fphubprojectsrowid']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "DeleteRecord"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Post_message_in_a_chat_or_channel": {
+          "runAfter": {
+            "Create_a_chat": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b7e471e6-5e8d-4715-b410-6cc82648e173"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "poster": "Flow bot",
+              "location": "Group chat",
+              "body/recipient": "@outputs('Create_a_chat')?['body/id']",
+              "body/messageBody": "<p>A PiPWare Project was just deleted via an automated workflow.<br>\n<br>\nProject ID: @{triggerOutputs()?['body/cr725_ideasideacode']}<br>\nProject Title: @{triggerOutputs()?['body/cr725_ideasideatitle']}</p>"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+              "connectionName": "shared_teams",
+              "operationId": "PostMessageToConversation"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Create_a_chat": {
+          "runAfter": {
+            "Delete_a_row": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f550656d-e362-4e09-b857-1c4ee6bc9f33"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "item/members": "mcrouch@anglogoldashanti.com",
+              "item/topic": "FP Hub - PiPWare Imports"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+              "connectionName": "shared_teams",
+              "operationId": "CreateChat"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Compose": {
+          "runAfter": {},
+          "type": "Compose",
+          "inputs": "@triggerBody()?['cr725_fphubprojectsrowid']"
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,383 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "aubia_sharedcommondataserviceforapps_6ef6a"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "interval": 12,
+            "frequency": "Month",
+            "timeZone": "W. Australia Standard Time",
+            "startTime": "2024-12-01T05:00:00Z"
+          }
+        }
+      },
+      "actions": {
+        "List_rows": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cr725_metricses",
+              "$filter": "cr725_monthlyautocapturerequired eq true and _cr725_site_value eq '20938a29-a0f8-ef11-bae2-000d3ab1e0d3' and cr725_metricworkarea eq 747870013"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "356545da-1e90-403f-a396-6d290c0ca429"
+          }
+        },
+        "Apply_to_each": {
+          "type": "Foreach",
+          "foreach": "@outputs('List_rows')?['body/value']",
+          "actions": {
+            "Compose": {
+              "type": "Compose",
+              "inputs": "@items('Apply_to_each')?['cr725_metricsid']",
+              "metadata": {
+                "operationMetadataId": "2ef071b8-cff2-41cb-b202-75029a806cc4"
+              }
+            },
+            "Add_a_new_row": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 2,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row-copy_2": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 3,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy_1": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 4,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row-copy": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy_1-copy": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 5,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row-copy_1": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy_1-copy_1": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 6,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row-copy_1-copy": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy_1-copy_2": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 7,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row-copy_1-copy_1": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy_1-copy_3": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 8,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row-copy_1-copy_2": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy_1-copy_4": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 9,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row-copy_1-copy_3": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy_1-copy_5": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 10,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row-copy_1-copy_4": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy_1-copy_6": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 11,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row-copy_1-copy_5": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy_1-copy_7": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 12,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row-copy_1-copy_6": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            },
+            "Add_a_new_row-copy_2": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr725_metricdatas",
+                  "item/cr725_Metric@odata.bind": "@items('Apply_to_each')?['@odata.id']",
+                  "item/cr725_month": 1,
+                  "item/cr725_Site@odata.bind": "https://bihub.crm4.dynamics.com/api/data/v9.1/cr725_sites(@{items('Apply_to_each')?['_cr725_site_value']})",
+                  "item/cr725_year": 2024
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Compose": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8da07164-7cb5-428f-a355-e7e86414a771"
+              }
+            }
+          },
+          "runAfter": {
+            "List_rows": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "89f9508c-720f-4785-9727-de4321d59635"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

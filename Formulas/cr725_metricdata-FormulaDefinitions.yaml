@@ -1,0 +1,9 @@
+cr725_impactkpi: =cr725_Metric.cr725_impactkpitext
+cr725_metricdescription: =cr725_Metric.cr725_description
+cr725_metricowner: =cr725_Metric.cr725_MetricOwner.domainname
+cr725_metrictovaluemultiplier: =cr725_Metric.cr725_metrictovaluemultiplier
+cr725_metricworkarea: =Text(cr725_Metric.cr725_metricworkarea)
+cr725_relatedworkarea: =cr725_Metric.cr725_metricworkarea
+cr725_siteandmetric: =cr725_Metric.cr725_siteandmetric
+cr725_userinputrequired: =If(cr725_Metric.cr725_userinputflag=true,"Yes","No")
+cr725_valuecalculated: =cr725_value * cr725_metrictovaluemultiplier

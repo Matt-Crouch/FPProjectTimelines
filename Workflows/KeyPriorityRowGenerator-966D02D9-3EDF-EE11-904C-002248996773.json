@@ -1,0 +1,155 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_40afe"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "3ecf50a9-f759-47d0-8497-899742421edf"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 1,
+              "subscriptionRequest/entityname": "cr725_bihub_ideas",
+              "subscriptionRequest/scope": 2,
+              "subscriptionRequest/runas": 1
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Add_Key_Priority_1": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "f582dbf8-377b-442d-9944-252afd06eb78"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr725_taskses",
+              "item/subject": "Enter Key Priority",
+              "item/cr725_keypriority": true,
+              "item/cr725_keyprioritynumber": 1,
+              "item/cr725_RelatedIdea_cr725_Tasks@odata.bind": "/cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Add_Key_Priority_2": {
+          "runAfter": {
+            "Add_Key_Priority_1": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "16906f83-19a3-4efe-bbb2-3d4ec2ea77cf"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr725_taskses",
+              "item/subject": "Enter Key Priority",
+              "item/cr725_keypriority": true,
+              "item/cr725_keyprioritynumber": 2,
+              "item/cr725_RelatedIdea_cr725_Tasks@odata.bind": "/cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Add_Key_Priority_3": {
+          "runAfter": {
+            "Add_Key_Priority_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "dc25b370-88f2-4c1e-bbf1-50978b77b2b4"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr725_taskses",
+              "item/subject": "Enter Key Priority",
+              "item/cr725_keypriority": true,
+              "item/cr725_keyprioritynumber": 3,
+              "item/cr725_RelatedIdea_cr725_Tasks@odata.bind": "/cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Add_Key_Priority_4": {
+          "runAfter": {
+            "Add_Key_Priority_3": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "de63cb4d-7cd1-42ea-b68b-d395175f414d"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr725_taskses",
+              "item/subject": "Enter Key Priority",
+              "item/cr725_keypriority": true,
+              "item/cr725_keyprioritynumber": 4,
+              "item/cr725_RelatedIdea_cr725_Tasks@odata.bind": "/cr725_bihub_ideases(@{triggerOutputs()?['body/cr725_bihub_ideasid']})"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

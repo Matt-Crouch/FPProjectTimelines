@@ -2,8 +2,8 @@
 // This file should be updated whenever the component is published
 
 export const VERSION_INFO = {
-  version: '1.0.2',
-  buildNumber: 3,
+  version: '1.0.3',
+  buildNumber: 4,
   lastUpdated: new Date().toISOString(),
   description: 'Initial release - Project Timeline Dashboard with Milestone Tracking',
   

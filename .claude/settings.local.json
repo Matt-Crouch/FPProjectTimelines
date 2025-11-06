@@ -33,7 +33,11 @@
       "Bash(git remote:*)",
       "Bash(git push)",
       "Bash(npm run publish:aubia:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(gh auth status:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git push:*)",
+      "Bash(gh issue create:*)"
     ],
     "deny": [],
     "ask": []

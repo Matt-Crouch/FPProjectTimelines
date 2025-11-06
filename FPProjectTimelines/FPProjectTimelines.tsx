@@ -441,6 +441,7 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
   };
 
   const [resources, setResources] = useState<Resource[]>([]);
+  const [allTasks, setAllTasks] = useState<ResourceTask[]>([]); // Store ALL tasks including those without assignments
   const [availableDepartments, setAvailableDepartments] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -924,8 +925,9 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
       setError(null);
 
       try {
-        const resourceData = await fetchResourceData(filters.site, filters.department);
+        const { resources: resourceData, allTasks: allTasksData } = await fetchResourceData(filters.site, filters.department);
         setResources(resourceData);
+        setAllTasks(allTasksData);
       } catch (error) {
         console.error('Error refetching resource data:', error);
         setError(error instanceof Error ? error.message : 'Failed to load resource data');
@@ -946,14 +948,16 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
 
     try {
       // Fetch data with current filters
-      const resourceData = await fetchResourceData(filters.site, filters.department);
+      const { resources: resourceData, allTasks: allTasksData } = await fetchResourceData(filters.site, filters.department);
       setResources(resourceData);
+      setAllTasks(allTasksData);
     } catch (error) {
       console.error('Error initializing resource management component:', error);
       setError(error instanceof Error ? error.message : 'Failed to load resource data');
 
       // Use mock data as fallback
       setResources(mockResources);
+      setAllTasks([]);
     } finally {
       setLoading(false);
     }
@@ -1001,13 +1005,13 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
     }
   };
 
-  const fetchResourceData = async (siteFilter?: string, departmentFilter?: string): Promise<Resource[]> => {
+  const fetchResourceData = async (siteFilter?: string, departmentFilter?: string): Promise<{ resources: Resource[], allTasks: ResourceTask[] }> => {
     try {
       // In test harness, webAPI might not be available, so use mock data
       if (!context.webAPI) {
         console.warn('WebAPI not available, using mock resource data for test harness');
         // Mock data already has utilization calculated in generateMockResources
-        return mockResources;
+        return { resources: mockResources, allTasks: [] };
       }
 
       console.log('Fetching resource data with filters:', { site: siteFilter, department: departmentFilter });
@@ -1015,13 +1019,13 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
       // Site filter is REQUIRED (no "all" option)
       if (!siteFilter || siteFilter === 'all') {
         console.error('Site filter is required but not provided');
-        return [];
+        return { resources: [], allTasks: [] };
       }
 
       const siteValue = SiteNameToValue[siteFilter];
       if (!siteValue) {
         console.error(`Unknown site: ${siteFilter}`);
-        return [];
+        return { resources: [], allTasks: [] };
       }
 
       // Step 1: Fetch PROJECTS filtered by site (like ExecutionReview does)
@@ -1045,7 +1049,7 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
 
       if (projectEntities.length === 0) {
         console.log('No projects found for selected filters');
-        return [];
+        return { resources: [], allTasks: [] };
       }
 
       // Step 2: Fetch tasks for those projects (in batches to avoid URL length limits)
@@ -1067,7 +1071,7 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
 
       if (taskEntities.length === 0) {
         console.log('No tasks found for selected projects');
-        return [];
+        return { resources: [], allTasks: [] };
       }
 
       // Create project lookup map
@@ -1204,6 +1208,26 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
         siteCounts.set(userSiteKey, (siteCounts.get(userSiteKey) || 0) + 1);
       });
 
+      // NEW: Transform ALL task entities into ResourceTask format (including tasks without assignments)
+      const allTasksList: ResourceTask[] = taskEntities.map((taskData: DataverseTask) => {
+        const project = projectMap.get(taskData._cr725_relatedproject_value);
+
+        return {
+          id: taskData.cr725_projecttasksid,
+          title: taskData.cr725_name,
+          description: taskData.cr725_note,
+          status: taskData.cr725_taskstate as TaskStatus,
+          startDate: taskData.cr725_startdate ? new Date(taskData.cr725_startdate) : undefined,
+          endDate: taskData.cr725_enddate ? new Date(taskData.cr725_enddate) : undefined,
+          projectId: taskData._cr725_relatedproject_value,
+          projectName: project?.cr725_title || 'Unknown Project',
+          percentComplete: taskData.cr725_percentdone,
+          createdOn: new Date(taskData.createdon),
+          taskType: taskData.aubia_tasktype,
+          category: taskData.aubia_category
+        };
+      });
+
       // Step 4: Calculate metrics for each resource
       userResourceMap.forEach((resource, userId) => {
         // Set most common department and site
@@ -1259,16 +1283,20 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
         .sort((a, b) => a.name.localeCompare(b.name));
 
       console.log('Processed resources:', resourcesWithTasks);
-      return resourcesWithTasks;
+      console.log('Total tasks (including unassigned):', allTasksList.length);
+      return { resources: resourcesWithTasks, allTasks: allTasksList };
 
     } catch (error) {
       console.error('Error fetching resource data:', error);
 
       // Return mock data as fallback
-      return mockResources.map(resource => ({
-        ...resource,
-        weeklyUtilization: generateWeeklyUtilization(resource.tasks)
-      }));
+      return {
+        resources: mockResources.map(resource => ({
+          ...resource,
+          weeklyUtilization: generateWeeklyUtilization(resource.tasks)
+        })),
+        allTasks: []
+      };
     }
   };
 
@@ -1828,6 +1856,7 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
             <div style={{ width: '100%' }}>
               {(() => {
                 // Build project map with aggregated dates and department
+                // Use ALL tasks (not just assigned ones) to ensure milestones are included
                 const projectMap = new Map<string, {
                   name: string;
                   startDate: Date | null;
@@ -1837,29 +1866,38 @@ export const FPProjectTimelines: React.FC<IFPProjectTimelinesProps> = ({ context
                   department: string;
                 }>();
 
+                // Get department lookup from resources
+                const departmentLookup = new Map<string, string>();
                 filteredResources.forEach(resource => {
                   resource.tasks.forEach(task => {
-                    if (!projectMap.has(task.projectId)) {
-                      projectMap.set(task.projectId, {
-                        name: task.projectName,
-                        startDate: task.startDate || null,
-                        endDate: task.endDate || null,
-                        taskCount: 1,
-                        tasks: [task],
-                        department: resource.department || 'Unknown'
-                      });
-                    } else {
-                      const proj = projectMap.get(task.projectId)!;
-                      proj.taskCount++;
-                      proj.tasks.push(task);
-                      if (task.startDate && (!proj.startDate || task.startDate < proj.startDate)) {
-                        proj.startDate = task.startDate;
-                      }
-                      if (task.endDate && (!proj.endDate || task.endDate > proj.endDate)) {
-                        proj.endDate = task.endDate;
-                      }
+                    if (!departmentLookup.has(task.projectId)) {
+                      departmentLookup.set(task.projectId, resource.department || 'Unknown');
                     }
                   });
+                });
+
+                // Use ALL tasks to build project map (includes milestones without resource assignments)
+                allTasks.forEach(task => {
+                  if (!projectMap.has(task.projectId)) {
+                    projectMap.set(task.projectId, {
+                      name: task.projectName,
+                      startDate: task.startDate || null,
+                      endDate: task.endDate || null,
+                      taskCount: 1,
+                      tasks: [task],
+                      department: departmentLookup.get(task.projectId) || 'Unknown'
+                    });
+                  } else {
+                    const proj = projectMap.get(task.projectId)!;
+                    proj.taskCount++;
+                    proj.tasks.push(task);
+                    if (task.startDate && (!proj.startDate || task.startDate < proj.startDate)) {
+                      proj.startDate = task.startDate;
+                    }
+                    if (task.endDate && (!proj.endDate || task.endDate > proj.endDate)) {
+                      proj.endDate = task.endDate;
+                    }
+                  }
                 });
 
                 const projects = Array.from(projectMap.entries())
